@@ -1,4 +1,6 @@
-require_relative 'lib/main.rb'
+require_relative 'lib/users.rb'
 
-users = User.new('data/users.json')
+users = User_Screen.new('data/users.json')
+users.run
+
 #cocktails = 
