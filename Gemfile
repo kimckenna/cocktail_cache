@@ -11,3 +11,5 @@ gem "rspec", "~> 3.10"
 gem "tty-prompt", "~> 0.23.0"
 
 gem "colorize", "~> 0.8.1"
+
+gem "json", "~> 2.5"
