@@ -14,7 +14,10 @@ class User
     def user_run
         welcome
         user_menu
-        user_selection(menu_selection)
+        puts user_selection(menu_selection)
+        #puts selected_user_name(menu_selection)
+        #user_selection(menu_selection)
+        #puts user_index(menu_selection)
         #system 'clear'
         #display_selected_user_name
         File.write(@file_path, @users.to_json)
@@ -67,12 +70,18 @@ class User
         gets.strip
     end
 
+    #def user_index(menu_selection)
+    #    menu_selection - 2
+    #end
+
     def user_selection(menu_selection) 
         if menu_selection == 1
             puts display_input_user_name
             add_user(user_name)
+            selected_user_name(menu_selection)
+        else
+            selected_user_name(menu_selection)
         end
-        puts selected_user_name
     end
 
     # Error handling required for incorrect input 
@@ -89,8 +98,8 @@ class User
         total_users = @users.length
     end
 
-    def selected_user_name
-        @users[menu_selection - 1][:user]
+    def selected_user_name(menu_selection)
+        @users[menu_selection - 2][:user]
     end
 
     def display_selected_user_name
