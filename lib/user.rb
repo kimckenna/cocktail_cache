@@ -3,7 +3,11 @@ require 'json'
 require 'tty-prompt'
 require 'colorize'
 
+class InvalidUserSelection < StandardError
+end
+
 class User
+
     attr_accessor :users
 
     def initialize(file_path)
@@ -22,21 +26,6 @@ class User
         #display_selected_user_name
         File.write(@file_path, @users.to_json)
     end
-    # def run
-    #     app_name
-    #     puts
-    #     welcome
-    #     puts
-    #     user_menu
-    #     user_selection(menu_selection)
-    #     #display_input_user_name
-
-    #     File.write(@file_path, @users.to_json)
-    # end
-
-    # def app_name
-    #     puts 'Cocktail Cache'
-    # end
 
     def welcome
         puts "Welcome!"
@@ -70,11 +59,8 @@ class User
         gets.strip
     end
 
-    #def user_index(menu_selection)
-    #    menu_selection - 2
-    #end
-
     def user_selection(menu_selection) 
+        raise InvalidUserSelection, 'Value is outside bounds for selection' if menu_selection.negative? || menu_selection - 2 >= @users.length
         if menu_selection == 1
             puts display_input_user_name
             add_user(user_name)
@@ -82,16 +68,16 @@ class User
         else
             selected_user_name(menu_selection)
         end
+    rescue InvalidUserSelection
+        puts "#{menu_selection} is an invalid input"
+    #retry
     end
 
     # Error handling required for incorrect input 
     #currently displaying selected_user_name
 
-    def add_user(user_name)
-        #if menu_selection == 1 
+    def add_user(user_name) 
         @users << { user: user_name, favourites: {} }
-        #File.write(@file_path, @users.to_json)
-        #end
     end
 
     def total_users
