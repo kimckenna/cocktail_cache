@@ -66,18 +66,30 @@ class List
         until i >= categories.length - 1 
             puts "\n#{categories[i]}\n\n"
             @cocktails.each do |cocktail|
-                if categories[1] && cocktail[:category] == nil
+                if cocktail[:category] == categories[i] 
                     puts "   #{cocktail[:name]}"
-                else
-                    if cocktail[:category] == categories[i] && cocktail[:category] != nil
-                        puts "   #{cocktail[:name]}"
-                    end 
-                end
+                end 
             end
             i += 1
         end
     end
 
+    # def category_menu
+    #     i = 0
+    #     until i >= categories.length - 1 
+    #         puts "\n#{categories[i]}\n\n"
+    #         @cocktails.each do |cocktail|
+    #             if categories[1] && cocktail[:category] == nil
+    #                 puts "   #{cocktail[:name]}"
+    #             else
+    #                 if cocktail[:category] == categories[i] && cocktail[:category] != nil
+    #                     puts "   #{cocktail[:name]}"
+    #                 end 
+    #             end
+    #         end
+    #         i += 1
+    #     end
+    # end
     #@cocktails.each do |cocktail|
 
     def view_all

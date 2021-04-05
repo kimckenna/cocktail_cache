@@ -51,6 +51,7 @@
     "preparation": "Build into old-fashioned glass filled with ice. Stir gently." },
   { "name": "Rose",
     "glass": "martini",
+    "category": "Something Strong",
     "ingredients": [
       { "unit": "cl",
         "amount": 2,
@@ -583,6 +584,7 @@
     "preparation": "Shake with ice cubes. Strain into chilled cocktail glass." },
   { "name": "God Mother",
     "glass": "old-fashioned",
+    "category": "Something Strong",
     "ingredients": [
       { "unit": "cl",
         "amount": 3.5,
@@ -628,6 +630,7 @@
     "preparation": "Build over crushed ice, in a rock glass. Stir, then pour the blackberry liqueur over the top of the drink in a circular fashion." },
   { "name": "Alexander",
     "glass": "martini",
+    "category": "Something Strong", 
     "ingredients": [
       { "unit": "cl",
         "amount": 3,
@@ -886,6 +889,7 @@
     "preparation": "Shake with ice cubes. Strain into highball glass." },
   { "name": "French Connection",
     "glass": "old-fashioned",
+    "category": "Something Strong",
     "ingredients": [
       { "unit": "cl",
         "amount": 3.5,
@@ -1120,6 +1124,7 @@
     "preparation": "Shake the ingredients and pour into highball glass. Top with Sparkling wine." },
   { "name": "God Father",
     "glass": "old-fashioned",
+    "category": "Something Strong",
     "ingredients": [
       { "unit": "cl",
         "amount": 3.5,
@@ -1216,6 +1221,7 @@
     "preparation": "Place lime and sugar in old fashion glass and muddle. Fill glass with ice and Cachaca (note:Caipiroska- use Vodka instead of Cachaca)." },
   { "name": "Vampiro",
     "glass": "highball",
+    "category": "Something Strong",
     "ingredients": [
       { "unit": "cl",
         "amount": 5,
