@@ -1,6 +1,7 @@
 require 'json'
 require 'tty-prompt'
 require 'colorize'
+require 'tty-font'
 
 class PrintCocktail
     attr_accessor :cocktails, :ingredients
@@ -21,13 +22,18 @@ class PrintCocktail
         #print_cocktail_name
         cocktail_elements
         #puts alcoholic_ingredients
+        puts
 
+    end
+
+    def font_block
+        font_block = TTY::Font.new(:block)
     end
     #array with hash for each cocktail
     #each cocktail includes an ingredients array 
 
     def selected_cocktail
-        index = 4
+        index = 10
         @cocktails[index]
     end
 
@@ -48,11 +54,14 @@ class PrintCocktail
     def cocktail_elements
         selected_cocktail.each do |key, value|
             if key == :name
-                puts "\n#{key.capitalize}: #{value}"
+                title(value)
             elsif key == :ingredients 
                 puts "\nIngredients:"
                 cocktail_ingredients
-            else key == :ingredients
+            elsif key == :preparation
+                puts "\n#{key.capitalize}:"
+                preparation_split(value)
+            else
                 puts "\n#{key.capitalize}: #{value}"
             end
         end
@@ -61,20 +70,26 @@ class PrintCocktail
     def cocktail_ingredients
         selected_cocktail[:ingredients].each do |value| 
             unless value["special"]
-                puts " \n  #{value["ingredient"]}: #{value["amount"]}#{value["unit"]}"
+                puts " \n   #{value["ingredient"]}: #{value["amount"]}#{value["unit"]}"
             else 
-                puts " \n  #{value["special"]}"
+                puts " \n   #{value["special"]}"
             end
         end
     end
 
-    # def alcoholic_ingredients
-    #     selected_cocktail[:ingredients]["ingredient"]
-    # end
+    def title(value)
+        title = value.split(' ')
+        title.each do |word|
+            print font_block.write(word)
+        end
+    end
 
-    # def non_alcoholic_ingredients
-    #     selected_cocktail[:ingredients]["special"]
-    # end
+    def preparation_split(value)
+        preparation_steps = value.split('. ')
+        preparation_steps.each do |step|
+            puts "\n   #{step}"
+        end
+    end 
 
     def load_cocktail_data(file_path)
         json_cocktail_data = JSON.parse(File.read(file_path))
@@ -89,6 +104,9 @@ class PrintCocktail
     
 end
 
+#Have only been running file on own have not linked to rest of app
 cocktails = PrintCocktail.new('data/cocktails.json')
 
 cocktails.cocktail_card_run
+
+
