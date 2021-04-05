@@ -1,6 +1,8 @@
 require 'json'
 require 'tty-prompt'
 require 'colorize'
+require_relative 'cocktail_card_module.rb'
+include PrintCocktail
 
 class List
     attr_accessor :cocktails
@@ -11,12 +13,21 @@ class List
     end
 
     def list_run
-        cocktail_names
-        #cocktail_category
-        #cocktail_categories
-        #categories
-        category_menu
+        #cocktail_names
+
+        #category_menu
+        system "clear"
+        menu_selection
         
+    end
+
+    def menu_selection
+        prompt = TTY::Prompt.new
+        menu_options = @cocktails.map.with_index do |cocktail, index|
+            { name: cocktail[:name], value: index }
+        end
+        user_selection = prompt.select('Choose a cocktail: ', menu_options, filter: true)
+        puts "index: #{user_selection}"
     end
 
     # def selected_cocktail_name(index)
@@ -39,13 +50,13 @@ class List
                 category << value
             end
         end
-        category.map! do |value|
-            if value == nil 
-                value = 'Something Strong'
-            else 
-                value = value
-            end
-        end
+        # category.map! do |value|
+        #     if value == nil 
+        #         value = 'Something Strong'
+        #     else 
+        #         value = value
+        #     end
+        # end
         category
     end
 
@@ -60,6 +71,22 @@ class List
     #     #categories
     # end 
 
+
+    # def category_menu
+    #     cocktail_order_category = []
+    #     i = 0
+    #     until i >= categories.length - 1 
+    #         puts "\n#{categories[i]}\n\n"
+    #         @cocktails.each do |cocktail|
+    #             if cocktail[:category] == categories[i] 
+    #                 cocktail_order_category << cocktail
+    #                 puts "   #{cocktail[:name]}"
+    #             end 
+    #         end
+    #         i += 1
+    #     end
+    #     pp cocktail_order_category
+    # end
 
     def category_menu
         i = 0
@@ -92,9 +119,7 @@ class List
     # end
     #@cocktails.each do |cocktail|
 
-    def view_all
 
-    end
 
     def cocktail_category
         @cocktails.map do |cocktail|
