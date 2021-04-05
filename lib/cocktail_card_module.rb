@@ -6,29 +6,11 @@ require 'tty-font'
 module PrintCocktail
     attr_accessor :cocktails
 
-    # def initialize(file_path)
-    #     @file_path = file_path
-    #     load_cocktail_data(file_path)
-    #     #cocktail_elements(cocktail_index)
-    # end
-
-    # def cocktail_card_run(cocktail_index)
-    #     #cocktail_name
-    #     #print_cocktail_name
-    #     cocktail_elements(cocktail_index)
-    #     puts
-
-    # end
-
     def font_block
         font_block = TTY::Font.new(:block)
     end
     #array with hash for each cocktail
     #each cocktail includes an ingredients array 
-
-    # def cocktail_index
-    #     1
-    # end
 
     def cocktail_index
         1
@@ -37,14 +19,6 @@ module PrintCocktail
     def selected_cocktail(cocktail_index)
         @cocktails[cocktail_index]
     end
-
-    # def selected_cocktail_name(index)
-    #     @cocktails[index][:name]
-    # end
-
-    # def print_cocktail_name
-    #     puts "Cocktail Name: #{selected_cocktail_name}"
-    # end
 
     def cocktail_name
         @cocktails.each do |cocktail|
@@ -57,10 +31,10 @@ module PrintCocktail
             if key == :name
                 title(value)
             elsif key == :ingredients 
-                puts "\nIngredients:"
+                puts "\n\nIngredients:"
                 cocktail_ingredients(cocktail_index)
             elsif key == :preparation
-                puts "\n#{key.capitalize}:"
+                puts "\n\n#{key.capitalize}:"
                 preparation_split(value)
             else
                 puts "\n#{key.capitalize}: #{value}"
@@ -90,6 +64,7 @@ module PrintCocktail
         preparation_steps.each do |step|
             puts "\n   #{step}"
         end
+        puts
     end 
 
     # def favourite

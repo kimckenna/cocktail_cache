@@ -42,12 +42,12 @@ class Random
     #     puts "Cocktail Name: #{selected_cocktail_name}"
     # end
 
-    def load_cocktail_data(file_path)
-        json_cocktail_data = JSON.parse(File.read(file_path))
-        @cocktails = json_cocktail_data.map do |cocktail|
-            cocktail.transform_keys(&:to_sym)
-        end
-    end
+    # def load_cocktail_data(file_path)
+    #     json_cocktail_data = JSON.parse(File.read(file_path))
+    #     @cocktails = json_cocktail_data.map do |cocktail|
+    #         cocktail.transform_keys(&:to_sym)
+    #     end
+    # end
 
 end
 
