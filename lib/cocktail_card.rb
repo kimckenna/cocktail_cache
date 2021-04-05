@@ -4,24 +4,17 @@ require 'colorize'
 require 'tty-font'
 
 class PrintCocktail
-    attr_accessor :cocktails, :ingredients
+    attr_accessor :cocktails
 
     def initialize(file_path)
         @file_path = file_path
         load_cocktail_data(file_path)
-        # @name 
-        # @glass
-        # @category
-        # @ingredients
-        # @garnish
-        # @preparation
     end
 
     def cocktail_card_run
         #cocktail_name
         #print_cocktail_name
         cocktail_elements
-        #puts alcoholic_ingredients
         puts
 
     end
@@ -38,7 +31,7 @@ class PrintCocktail
     end
 
     def selected_cocktail_name
-        @cocktails[0][:name]
+        @cocktails[index][:name]
     end
 
     def print_cocktail_name
@@ -91,6 +84,10 @@ class PrintCocktail
         end
     end 
 
+    def favourite
+        if favourite_toggle == "yes"
+
+    end 
     def load_cocktail_data(file_path)
         json_cocktail_data = JSON.parse(File.read(file_path))
         @cocktails = json_cocktail_data.map do |cocktail|

@@ -8,7 +8,7 @@ require_relative 'lib/app'
 app = App.new('data/users.json')
 users = User.new('data/users.json')
 #favourite = App.new('data/users.json')
-cocktails = PrintCocktail.new('data/cocktails.json')
+#cocktails = PrintCocktail.new('data/cocktails.json')
 
 app.app_name_run
 users.user_run
