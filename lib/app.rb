@@ -16,23 +16,25 @@ class App
 
     def initialize(file_path)
         @file_path = file_path
-        @user = load_user_data(file_path)
+        @user = User.new('data/users.json')
         @random = Random.new()
         @list = List.new('data/cocktails.json')
         #load_users
     end
 
-    def app_name_run
+    # def app_name_run
+    #     app_name
+    #     puts
+    #     main_menu_selection(main_menu_options)
+    #     #File.write(@file_path, @users.to_json)
+    # end
+
+    def primary_app_run
         app_name
         puts
-        # main_menu_options
+        @user.user_run
         main_menu_selection(main_menu_options)
-        #File.write(@file_path, @users.to_json)
     end
-
-    # def primary_app_run
-    #     app_name
-    # end
 
     def app_name
         puts 'Cocktail Cache'

@@ -6,7 +6,7 @@ require_relative 'lib/app'
 #users.run
 
 app = App.new('data/users.json')
-users = User.new('data/users.json')
+#users = User.new('data/users.json')
 #users_cocktails = User.new('data/cocktails.json')
 #random = Random.new('data/cocktails.json')
 #favourite = App.new('data/users.json')
@@ -14,6 +14,6 @@ users = User.new('data/users.json')
 
 
 #users.user_run
-app.app_name_run
+app.primary_app_run
 
 #cocktails = 

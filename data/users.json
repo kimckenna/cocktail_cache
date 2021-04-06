@@ -1,1 +1,1 @@
-[{"user":"Kim","favourites":{}},{"user":"Yulie","favourites":{}},{"user":"Bob","favourites":{}},{"user":"Julia","favourites":{}}]
+{"kim":{"favourites":[]},"bob":{"favourites":[]}}
