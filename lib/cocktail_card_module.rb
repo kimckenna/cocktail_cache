@@ -11,7 +11,10 @@ module PrintCocktail
     end
     #array with hash for each cocktail
     #each cocktail includes an ingredients array 
-
+    def total_cocktails
+        @cocktails.length - 1
+    end
+    
     def cocktail_index
         1
     end

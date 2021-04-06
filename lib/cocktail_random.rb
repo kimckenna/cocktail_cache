@@ -7,9 +7,9 @@ include PrintCocktail
 class Random
     attr_accessor :cocktails #:users, :favourites
 
-    def initialize(file_path)
-        @file_path = file_path
-        load_cocktail_data(file_path)
+    def initialize#(file_path)
+        #file_path = file_path
+        #cocktail = load_cocktail_data(file_path)
         
         #load_users
     end
@@ -18,18 +18,14 @@ class Random
         system 'clear'
         #puts total_cocktails
         #print_cocktail_name
-        PrintCocktail.cocktail_elements(cocktail_index)
-    end
-
-    def total_cocktails
-        @cocktails.length - 1
+        #PrintCocktail.cocktail_elements(random_cocktail_index)
     end
 
     def random_index_full_list
-        rand(0..total_cocktails)
+        rand(0..PrintCocktail.total_cocktails)
     end
 
-    def cocktail_index
+    def random_cocktail_index
         random_index_full_list
     end 
 
@@ -51,5 +47,5 @@ class Random
 
 end
 
-random = Random.new('data/cocktails.json')
-random.random_run
+# random = Random.new('data/cocktails.json')
+# random.random_run

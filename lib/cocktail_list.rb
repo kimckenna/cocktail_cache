@@ -14,11 +14,9 @@ class List
 
     def list_run
         #cocktail_names
-
         #category_menu
         system "clear"
-        menu_selection
-        
+        PrintCocktail.cocktail_elements(menu_selection)
     end
 
     def menu_selection
@@ -27,20 +25,8 @@ class List
             { name: cocktail[:name], value: index }
         end
         user_selection = prompt.select('Choose a cocktail: ', menu_options, filter: true)
-        puts "index: #{user_selection}"
+        user_selection
     end
-
-    # def selected_cocktail_name(index)
-    #     @cocktails[index][:name]
-    # end
-
-    # def cocktail_names
-    #     puts "Cocktail Name: #{selected_cocktail_name}"
-    # end
-
-    # def category
-    #     category = []
-    # end 
 
     def categories
         category = []
@@ -59,6 +45,53 @@ class List
         # end
         category
     end
+
+    def category_menu
+        i = 0
+        until i >= categories.length - 1 
+            puts "\n#{categories[i]}\n\n"
+            @cocktails.each do |cocktail|
+                if cocktail[:category] == categories[i] 
+                    puts "   #{cocktail[:name]}"
+                end 
+            end
+            i += 1
+        end
+    end
+
+    def cocktail_category
+        @cocktails.map do |cocktail|
+            cocktail[:category]
+            # if cocktail[:category] == nil
+            #     @cocktails{} << "category" => "Something Stronger"
+            # end
+        end
+    end 
+
+    def cocktail_names
+        @cocktails.each do |cocktail|
+            puts "   #{cocktail[:name]}"
+        end
+    end
+
+    def load_cocktail_data(file_path)
+        json_cocktail_data = JSON.parse(File.read(file_path))
+        @cocktails = json_cocktail_data.map do |cocktail|
+            cocktail.transform_keys(&:to_sym)
+        end
+    end
+
+    # def selected_cocktail_name(index)
+    #     @cocktails[index][:name]
+    # end
+
+    # def cocktail_names
+    #     puts "Cocktail Name: #{selected_cocktail_name}"
+    # end
+
+    # def category
+    #     category = []
+    # end 
 
     # def complete_categories
     #     categories.map! do |value|
@@ -88,19 +121,6 @@ class List
     #     pp cocktail_order_category
     # end
 
-    def category_menu
-        i = 0
-        until i >= categories.length - 1 
-            puts "\n#{categories[i]}\n\n"
-            @cocktails.each do |cocktail|
-                if cocktail[:category] == categories[i] 
-                    puts "   #{cocktail[:name]}"
-                end 
-            end
-            i += 1
-        end
-    end
-
     # def category_menu
     #     i = 0
     #     until i >= categories.length - 1 
@@ -118,39 +138,7 @@ class List
     #     end
     # end
     #@cocktails.each do |cocktail|
-
-
-
-    def cocktail_category
-        @cocktails.map do |cocktail|
-            cocktail[:category]
-            # if cocktail[:category] == nil
-            #     @cocktails{} << "category" => "Something Stronger"
-            # end
-        end
-    end 
-
-    def cocktail_names
-        @cocktails.each do |cocktail|
-            puts "   #{cocktail[:name]}"
-        end
-    end
-
-    def load_cocktail_data(file_path)
-        json_cocktail_data = JSON.parse(File.read(file_path))
-        @cocktails = json_cocktail_data.map do |cocktail|
-            cocktail.transform_keys(&:to_sym)
-        end
-    end
 end
 
 list = List.new('data/cocktails.json')
 list.list_run
-
-# def selected_cocktail_name(index)
-    #     @cocktails[index][:name]
-# end
-
-# def print_cocktail_name
-    #     puts "Cocktail Name: #{selected_cocktail_name}"
-# end

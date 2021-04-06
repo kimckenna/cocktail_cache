@@ -1,5 +1,10 @@
 
+#user menu 
 require_relative "user"
+#app menu outputs
+require_relative "cocktail_random"
+require_relative "cocktail_list"
+#gems
 require 'json'
 require 'tty-prompt'
 require 'colorize'
@@ -11,21 +16,22 @@ class App
 
     def initialize(file_path)
         @file_path = file_path
-        load_user_data(file_path)
-        
+        @user = load_user_data(file_path)
+        @random = Random.new()
+        @list = List.new()
         #load_users
     end
 
     def app_name_run
         app_name
         puts
+        @random.random_run
         #File.write(@file_path, @users.to_json)
     end
 
-    def primary_app_run
-        app_name
-
-    end
+    # def primary_app_run
+    #     app_name
+    # end
 
     def app_name
         puts 'Cocktail Cache'
@@ -37,10 +43,4 @@ class App
             user.transform_keys(&:to_sym)
         end
     end
-
-    # def load_users
-    #     local_dir = File.expand_path(../, __FILE__)
-    #     $LOAD_PATH.unshift(local_dir)
-    #     require users.rb
-    # end 
 end
