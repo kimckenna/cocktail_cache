@@ -18,14 +18,15 @@ class App
         @file_path = file_path
         @user = load_user_data(file_path)
         @random = Random.new()
-        @list = List.new()
+        @list = List.new('data/cocktails.json')
         #load_users
     end
 
     def app_name_run
         app_name
         puts
-        @random.random_run
+        # main_menu_options
+        main_menu_selection(main_menu_options)
         #File.write(@file_path, @users.to_json)
     end
 
@@ -35,6 +36,26 @@ class App
 
     def app_name
         puts 'Cocktail Cache'
+    end
+
+    def main_menu_options
+        prompt = TTY::Prompt.new
+        main_menu_options = {"Random Cocktail": 1, "Favourites": 2, "Search Cocktails": 3, "Exit": 4}
+        user_main_menu_selection = prompt.select("Make a Selection:", main_menu_options)
+        user_main_menu_selection
+    end 
+
+    def main_menu_selection(main_menu_options)
+        case main_menu_options
+        when 1
+            @random.random_run
+        when 2
+
+        when 3
+            @list.list_run
+        when 4
+            exit
+        end
     end
 
     def load_user_data(file_path)

@@ -18,7 +18,7 @@ class Random
         system 'clear'
         #puts total_cocktails
         #print_cocktail_name
-        #PrintCocktail.cocktail_elements(random_cocktail_index)
+        PrintCocktail.cocktail_elements(random_cocktail_index)
     end
 
     def random_index_full_list

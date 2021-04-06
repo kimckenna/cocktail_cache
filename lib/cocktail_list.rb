@@ -16,10 +16,10 @@ class List
         #cocktail_names
         #category_menu
         system "clear"
-        PrintCocktail.cocktail_elements(menu_selection)
+        PrintCocktail.cocktail_elements(full_cocktail_list_selection)
     end
 
-    def menu_selection
+    def full_cocktail_list_selection
         prompt = TTY::Prompt.new
         menu_options = @cocktails.map.with_index do |cocktail, index|
             { name: cocktail[:name], value: index }
@@ -74,12 +74,18 @@ class List
         end
     end
 
-    def load_cocktail_data(file_path)
-        json_cocktail_data = JSON.parse(File.read(file_path))
-        @cocktails = json_cocktail_data.map do |cocktail|
-            cocktail.transform_keys(&:to_sym)
-        end
-    end
+end
+
+#list = List.new('data/cocktails.json')
+#list.list_run
+
+
+    # def load_cocktail_data(file_path)
+    #     json_cocktail_data = JSON.parse(File.read(file_path))
+    #     @cocktails = json_cocktail_data.map do |cocktail|
+    #         cocktail.transform_keys(&:to_sym)
+    #     end
+    # end
 
     # def selected_cocktail_name(index)
     #     @cocktails[index][:name]
@@ -138,7 +144,3 @@ class List
     #     end
     # end
     #@cocktails.each do |cocktail|
-end
-
-list = List.new('data/cocktails.json')
-list.list_run
