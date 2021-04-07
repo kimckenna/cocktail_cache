@@ -9,6 +9,7 @@ end
 class User
 
     attr_accessor :users
+    attr_reader :current_user
 
     def initialize(file_path)
         @file_path = file_path
@@ -20,34 +21,16 @@ class User
         puts
         welcome
         user_type_menu
-        #user_type_selection(user_type)
+        puts
+
 
         File.write(@file_path, @users.to_json)
-        #puts user_selection(menu_selection)
-        #puts selected_user_name(menu_selection)
-        #user_selection(menu_selection)
-        #puts user_index(menu_selection)
-        #system 'clear'
-        #display_selected_user_name
     end
 
     def welcome
         puts "Welcome!"
+        puts
     end
-
-    # def user_menu
-    #     index = 0
-    #     puts "Create New User:"
-    #     puts "\n  #{index + 1}. New User"
-    #     puts
-    #     unless @users.empty?
-    #         puts "OR"
-    #         puts "\nSelect from Existing Users:"
-    #         @users.each_with_index do |user, index|
-    #             puts "\n  #{index + 2}. #{user[:user]}"
-    #         end
-    #     end      
-    # end
 
     def user_type_menu
         #p @users.empty?
@@ -88,7 +71,7 @@ class User
         #     { name: user[:user], value: index }
         # end
         @current_user = prompt.select('Select from Existing Users:', @users.keys, filter: true)
-        @current_user
+        p @current_user
     end 
 
     def existing_user_index(existing_user_options)
@@ -115,7 +98,19 @@ class User
         total_users = @users.length
     end
 
-
+    # def user_menu
+    #     index = 0
+    #     puts "Create New User:"
+    #     puts "\n  #{index + 1}. New User"
+    #     puts
+    #     unless @users.empty?
+    #         puts "OR"
+    #         puts "\nSelect from Existing Users:"
+    #         @users.each_with_index do |user, index|
+    #             puts "\n  #{index + 2}. #{user[:user]}"
+    #         end
+    #     end      
+    # end
 
     # def user_menu
     #     index = 0

@@ -16,4 +16,6 @@ gem "json", "~> 2.5"
 
 gem "tty-font", "~> 0.5.0"
 
-gem 'asciiart', '~> 0.0.9'
+#gem 'asciiart', '~> 0.0.9'
+
+gem 'artii', '~> 2.1', '>= 2.1.2'

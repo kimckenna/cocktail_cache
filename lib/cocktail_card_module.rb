@@ -2,22 +2,10 @@ require 'json'
 require 'tty-prompt'
 require 'colorize'
 require 'tty-font'
+require 'artii'
 
 module PrintCocktail
     attr_accessor :cocktails
-
-    def font_block
-        font_block = TTY::Font.new(:block)
-    end
-    #array with hash for each cocktail
-    #each cocktail includes an ingredients array 
-    def total_cocktails
-        @cocktails.length - 1
-    end
-    
-    def cocktail_index
-        1
-    end
 
     def selected_cocktail(cocktail_index)
         @cocktails[cocktail_index]
@@ -30,6 +18,7 @@ module PrintCocktail
     end
 
     def cocktail_elements(cocktail_index)
+        system 'clear'
         selected_cocktail(cocktail_index).each do |key, value|
             if key == :name
                 title(value)
@@ -47,17 +36,14 @@ module PrintCocktail
 
     def cocktail_ingredients(cocktail_index)
         selected_cocktail(cocktail_index)[:ingredients].each do |value| 
-            unless value["special"]
-                puts " \n   #{value["ingredient"]}: #{value["amount"]}#{value["unit"]}"
-            else 
-                puts " \n   #{value["special"]}"
-            end
+            puts " \n   #{value["ingredient"]}: #{value["amount"]}#{value["unit"]}"
         end
     end
 
     def title(value)
         title = value.split(' ')
         title.each do |word|
+            #print font_dotmatrix.asciify(word)
             print font_block.write(word)
         end
     end
@@ -70,6 +56,22 @@ module PrintCocktail
         puts
     end 
 
+    def font_block
+        font_block = TTY::Font.new(:block)
+    end
+
+    def font_dotmatrix
+        a = Artii::Base.new :font => 'dotmatrix'
+    end
+
+    def total_cocktails
+        @cocktails.length - 1
+    end
+    
+    # def cocktail_index
+    #     1
+    # end
+
     # def favourite
     #     if favourite_toggle == "yes"
 
@@ -79,10 +81,6 @@ module PrintCocktail
         @cocktails = json_cocktail_data.map do |cocktail|
             cocktail.transform_keys(&:to_sym)
         end
-    
-        #@ingredients = json_cocktail_data.map do |ingredient| 
-        #    ingredient.transform_keys(&:to_sym)
-        #end
     end
     
 end

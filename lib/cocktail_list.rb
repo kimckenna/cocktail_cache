@@ -16,7 +16,20 @@ class List
         #cocktail_names
         #category_menu
         system "clear"
+        title_name(page_name)
+
         PrintCocktail.cocktail_elements(full_cocktail_list_selection)
+    end
+
+    def title_name(page_name)
+        title = page_name.split(' ')
+        title.each do |word|
+            #print font_dotmatrix.asciify(word)
+            print font_block.write(word)
+        end
+    end
+    def page_name
+        'Cocktail Search'
     end
 
     def full_cocktail_list_selection
