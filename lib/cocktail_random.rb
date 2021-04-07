@@ -18,16 +18,21 @@ class Random
         system 'clear'
         #puts total_cocktails
         #print_cocktail_name
-        PrintCocktail.cocktail_elements(random_cocktail_index)
+        PrintCocktail.cocktail_elements(random_index_full_list)
     end
 
     def random_index_full_list
-        rand(0..PrintCocktail.total_cocktails)
+        index = rand(0..PrintCocktail.total_cocktails)
+        index
     end
 
-    def random_cocktail_index
-        random_index_full_list
-    end 
+    def random_cocktail
+        PrintCocktail.cocktail_name.sample   
+    end
+
+    #def random_cocktail_index
+    #    random_index_full_list
+    #end 
 
     #use to check last cocktail correct
     # def selected_cocktail_name

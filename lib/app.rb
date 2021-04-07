@@ -64,6 +64,10 @@ class App
         case main_menu_options
         when 1
             @random.random_run
+            cocktail_menu_selection(cocktail_view_menu)
+            
+            p @user.users[@user.current_user]['favourites']
+            p @user.users
         when 2
             @favourite.favourites_run(@user)
         when 3
@@ -75,8 +79,28 @@ class App
 
     def load_user_data(file_path)
        json_user_data = JSON.parse(File.read(file_path))
-        @users = json_user_data.map do |user|
+        @user = json_user_data.map do |user|
             user.transform_keys(&:to_sym)
+        end
+    end
+
+    def cocktail_view_menu
+        prompt = TTY::Prompt.new
+        cocktail_menu_options = {"Add to Favourites": 1, "Run Again": 2, "Exit to Main Menu": 3}
+        user_cocktail_menu_selection = prompt.select("Make a Selection:", cocktail_menu_options)
+    end
+
+    def user_favourite_array
+        @user.users[@user.current_user]['favourites']
+    end
+
+    def cocktail_menu_selection(cocktail_view_menu)
+        case cocktail_view_menu
+        when 1
+            @favourite.favourite_cocktail(user_favourite_array, 1)
+        when 2
+        when 3
+            main_menu_selection(main_menu_options)
         end
     end
 

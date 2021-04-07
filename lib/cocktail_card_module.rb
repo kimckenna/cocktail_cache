@@ -11,6 +11,10 @@ module PrintCocktail
         @cocktails[cocktail_index]
     end
 
+    def selected_cocktail_name(cocktail_index)
+        @cocktails[cocktail_index][:name]
+    end
+
     def cocktail_name
         @cocktails.each do |cocktail|
             puts "Cocktail Name: #{cocktail[:name]}"
@@ -36,7 +40,11 @@ module PrintCocktail
 
     def cocktail_ingredients(cocktail_index)
         selected_cocktail(cocktail_index)[:ingredients].each do |value| 
-            puts " \n   #{value["ingredient"]}: #{value["amount"]}#{value["unit"]}"
+            unless value["special"]
+                puts " \n   #{value["ingredient"]}: #{value["amount"]}#{value["unit"]}"
+            else 
+                puts " \n   #{value["special"]}"
+            end
         end
     end
 
