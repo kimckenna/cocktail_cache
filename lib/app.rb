@@ -63,11 +63,12 @@ class App
     def main_menu_selection(main_menu_options)
         case main_menu_options
         when 1
-            @random.random_run
-            cocktail_menu_selection(cocktail_view_menu)
-            
-            p @user.users[@user.current_user]['favourites']
-            p @user.users
+                @random.random_run
+            loop do
+                random_cocktail_menu_selection(cocktail_view_menu)
+                p @user.users[@user.current_user]['favourites']
+                p @user.users
+            end
         when 2
             @favourite.favourites_run(@user)
         when 3
@@ -94,11 +95,14 @@ class App
         @user.users[@user.current_user]['favourites']
     end
 
-    def cocktail_menu_selection(cocktail_view_menu)
+    def random_cocktail_menu_selection(cocktail_view_menu)
         case cocktail_view_menu
         when 1
-            @favourite.favourite_cocktail(user_favourite_array, 1)
+            #@favourite.favourite_cocktail(user_favourite_array, 1)
+            @user.add_favourite(user_favourite_array, )
         when 2
+            system 'clear'
+            @random.random_run
         when 3
             main_menu_selection(main_menu_options)
         end

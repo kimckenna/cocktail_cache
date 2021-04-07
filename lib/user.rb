@@ -8,13 +8,15 @@ end
 
 class User
 
-    attr_accessor :users
+    attr_accessor :users, :added_favourite
     attr_reader :current_user
+
 
     def initialize(file_path)
         @file_path = file_path
         load_user_data(file_path)
         @current_user = ''
+        @add_favourite = {}
     end
 
     def user_run
@@ -64,6 +66,11 @@ class User
         # user_index = new_user_name_index
         # puts user_index
     end
+
+    def add_favourite(user, cocktail_index) 
+        @add_favourite = @users[current_user]['favourites'] << {'cocktail_name': PrintCocktail.selected_cocktail_name(cocktail_index), 'favourite': true}
+        File.write(@file_path, @users.to_json)
+    end 
 
     def existing_user_options
         prompt = TTY::Prompt.new
