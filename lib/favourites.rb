@@ -1,5 +1,6 @@
 
 require_relative 'cocktail_card_module.rb'
+require_relative 'app'
 include PrintCocktail
 require 'json'
 require 'tty-prompt'
@@ -11,6 +12,7 @@ class Favourite
 
     def initialize(file_path)
         @file_path = file_path
+        #@app = App.new()
     end
 
     def favourites_run(user)
@@ -23,16 +25,24 @@ class Favourite
 
     def user_favourites(user)
         prompt = TTY::Prompt.new
-        user_options = {"#{user.current_user.capitalize}'s Favourites": 1, "Other User Favourites": 2}
+        user_options = {"#{user.current_user.capitalize}'s Favourites": 1, "Other User Favourites": 2, "Return to Main Menu": 3}
         user_selection = prompt.select("Make a Selection:", user_options)
     end 
 
     def user_favourites_selection(user_favourites)
         case user_favourites
         when 1
-            
+            favourites_options_menu
         when 2
+        when 3
+            #@app.main_menu_selection(main_menu_options)
         end
+    end
+
+    def favourites_options_menu
+        prompt = TTY::Prompt.new
+        favourite_options = {"Random Favourite": 1, "View All Favourites": 2, "Return to Main Menu": 3}
+        user_selection = prompt.select("Make a Selection:", favourite_options)
     end
 
     #if user selects favourite 

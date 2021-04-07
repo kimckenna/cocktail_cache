@@ -5,34 +5,44 @@ require_relative 'cocktail_card_module.rb'
 include PrintCocktail
 
 class Random
-    attr_accessor :cocktails #:users, :favourites
+    attr_accessor :cocktails, :selected_index #:users, :favourites
 
     def initialize#(file_path)
         #file_path = file_path
         #cocktail = load_cocktail_data(file_path)
-        
         #load_users
+        @selected_index = []
     end
 
     def random_run
         system 'clear'
         #puts total_cocktails
         #print_cocktail_name
-        PrintCocktail.cocktail_elements(random_index_full_list)
+        random_index_full_list
+        PrintCocktail.cocktail_elements(@selected_index[-1])
     end
 
     def random_index_full_list
         index = rand(0..PrintCocktail.total_cocktails)
-        index
+        @selected_index << index
+        p @selected_index
     end
 
-    def random_cocktail
-        PrintCocktail.cocktail_name.sample   
+    #does not work - worked when sitting in app.rb 
+    #also unsure if want to clear - could use to exclude array numbers from random index selection
+    def clear_selected_index
+        selected_index.map do |index|
+            selected_index.pop
+        end
     end
 
-    #def random_cocktail_index
-    #    random_index_full_list
-    #end 
+    # def random_cocktail
+    #     PrintCocktail.cocktail_name.sample   
+    # end
+
+    # def selected_cocktail_index
+    #     selected_index = []
+    # end 
 
     #use to check last cocktail correct
     # def selected_cocktail_name

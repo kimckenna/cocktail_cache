@@ -65,15 +65,16 @@ class App
         when 1
                 @random.random_run
             loop do
-                random_cocktail_menu_selection(cocktail_view_menu)
-                p @user.users[@user.current_user]['favourites']
-                p @user.users
+                random_cocktail_menu_selection(random_cocktail_view_menu)
+                # p @user.users[@user.current_user]['favourites']
+                # p @user.users
             end
         when 2
             @favourite.favourites_run(@user)
         when 3
             @list.list_run
         when 4
+            system 'clear'
             exit
         end
     end
@@ -85,7 +86,7 @@ class App
         end
     end
 
-    def cocktail_view_menu
+    def random_cocktail_view_menu
         prompt = TTY::Prompt.new
         cocktail_menu_options = {"Add to Favourites": 1, "Run Again": 2, "Exit to Main Menu": 3}
         user_cocktail_menu_selection = prompt.select("Make a Selection:", cocktail_menu_options)
@@ -95,17 +96,22 @@ class App
         @user.users[@user.current_user]['favourites']
     end
 
-    def random_cocktail_menu_selection(cocktail_view_menu)
-        case cocktail_view_menu
+    def random_cocktail_menu_selection(random_cocktail_view_menu)
+        case random_cocktail_view_menu
         when 1
             #@favourite.favourite_cocktail(user_favourite_array, 1)
-            @user.add_favourite(user_favourite_array, )
+            @user.add_favourite(user_favourite_array, @random.selected_index[-1])
+            # p @random.selected_index
         when 2
             system 'clear'
             @random.random_run
         when 3
+            #@random.clear_selected_index
             main_menu_selection(main_menu_options)
         end
+    end
+
+    def favourites_cocktail_menu_selection(cocktail_view_menu)
     end
 
 end
