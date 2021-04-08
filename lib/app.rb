@@ -23,19 +23,20 @@ class App
         @random = Random.new()
         @list = List.new('data/cocktails.json')
         @favourite = Favourite.new('data/users.json')
+        @run_sub_menu = true
         #load_users
     end
 
     def primary_app_run
-        #loop do
         system "clear"
         title_name(app_name)
         puts
         @user.user_run
-        #system "clear"
+        loop do
+        system "clear"
         title_name(app_name)
         main_menu_selection(main_menu_options)
-        
+        end
     end
 
     def font_block
@@ -55,7 +56,7 @@ class App
 
     def main_menu_options
         prompt = TTY::Prompt.new
-        main_menu_options = {"Random Cocktail": 1, "Favourites": 2, "Search Cocktails": 3, "Exit": 4}
+        main_menu_options = {"Random Cocktail": 1, "Favourites": 2, "Search Cocktails": 3, "Return to User Menu": 4, "Exit": 5}
         user_main_menu_selection = prompt.select("Make a Selection:", main_menu_options)
         user_main_menu_selection
     end 
@@ -64,7 +65,8 @@ class App
         case main_menu_options
         when 1
                 @random.random_run
-            loop do
+             
+            while @run_sub_menu
                 random_cocktail_menu_selection(random_cocktail_view_menu)
                 # p @user.users[@user.current_user]['favourites']
                 # p @user.users
@@ -74,6 +76,8 @@ class App
         when 3
             @list.list_run
         when 4
+            @user.user_run
+        when 5
             system 'clear'
             exit
         end
@@ -96,18 +100,20 @@ class App
         @user.users[@user.current_user]['favourites']
     end
 
-    def random_cocktail_menu_selection(random_cocktail_view_menu)
-        case random_cocktail_view_menu
+    def random_cocktail_menu_selection(selection)
+        case selection
         when 1
-            #@favourite.favourite_cocktail(user_favourite_array, 1)
+            # @favourite.favourite_cocktail(user_favourite_array, 1)
             @user.add_favourite(user_favourite_array, @random.selected_index[-1])
-            # p @random.selected_index
         when 2
             system 'clear'
             @random.random_run
         when 3
-            #@random.clear_selected_index
-            main_menu_selection(main_menu_options)
+
+            @random.clear_selected_index
+            # main_menu_selection(main_menu_options)
+            p @random.selected_index
+            @run_sub_menu = false
         end
     end
 

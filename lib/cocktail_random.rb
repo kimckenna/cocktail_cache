@@ -23,18 +23,26 @@ class Random
     end
 
     def random_index_full_list
-        index = rand(0..PrintCocktail.total_cocktails)
+        index = 0
+        loop  do
+            index = rand(0..PrintCocktail.total_cocktails) 
+            break unless @selected_index.include?(index)
+        end
         @selected_index << index
         p @selected_index
+
+        #PrintCocktail.total_cocktails
     end
 
     #does not work - worked when sitting in app.rb 
     #also unsure if want to clear - could use to exclude array numbers from random index selection
     def clear_selected_index
-        selected_index.map do |index|
-            selected_index.pop
-        end
+        selected_index = []
     end
+
+    # selected_index.map do |index|
+    #     selected_index.pop
+    # end
 
     # def random_cocktail
     #     PrintCocktail.cocktail_name.sample   

@@ -12,7 +12,7 @@ module PrintCocktail
     end
 
     def selected_cocktail_name(cocktail_index)
-        @cocktails[cocktail_index][:name]
+        cocktail_name = @cocktails[cocktail_index][:name]
     end
 
     def cocktail_name
@@ -73,7 +73,7 @@ module PrintCocktail
     end
 
     def total_cocktails
-        @cocktails.length - 1
+        p @cocktails.length - 1
     end
     
     # def cocktail_index
@@ -98,3 +98,4 @@ end
 include PrintCocktail
 PrintCocktail.load_cocktail_data('data/cocktails.json')
 #PrintCocktail.cocktail_elements(cocktail_index)
+PrintCocktail.total_cocktails

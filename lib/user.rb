@@ -25,7 +25,6 @@ class User
         user_type_menu
         puts
 
-
         File.write(@file_path, @users.to_json)
     end
 
