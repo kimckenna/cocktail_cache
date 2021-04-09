@@ -20,7 +20,7 @@ class App
     def initialize(file_path)
         @file_path = file_path
         @user = User.new('data/users.json')
-        @random = Random.new()
+        @random = Random.new('data/cocktails.json')
         @list = List.new('data/cocktails.json')
         @favourite = Favourite.new('data/users.json')
         @run_sub_menu = true
@@ -95,6 +95,9 @@ class App
             @favourite.favourites_run(@user)
         when 3
             @list.list_run
+
+            while @run_sub_menu
+            end
         when 4
             @user.user_run
         when 5
@@ -137,7 +140,7 @@ class App
         end
     end
 
-    def favourites_cocktail_menu_selection(cocktail_view_menu)
-    end
+    # def favourites_cocktail_menu_selection(cocktail_view_menu)
+    # end
 
 end

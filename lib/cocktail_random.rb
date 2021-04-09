@@ -7,9 +7,9 @@ include PrintCocktail
 class Random
     attr_accessor :cocktails, :selected_index #:users, :favourites
 
-    def initialize#(file_path)
-        #file_path = file_path
-        #cocktail = load_cocktail_data(file_path)
+    def initialize(file_path)
+        file_path = file_path
+        load_cocktail_data(file_path)
         #load_users
         @selected_index = []
     end
@@ -19,7 +19,12 @@ class Random
         #puts total_cocktails
         #print_cocktail_name
         random_index_full_list
-        PrintCocktail.cocktail_elements(@selected_index[-1])
+        #p random_index_name
+        #p @cocktails[0]
+        # p @cocktails[0][:name]
+        #PrintCocktail.cocktail_elements(@selected_index[-1])
+        PrintCocktail.selected_cocktail_index(random_index_name)
+        PrintCocktail.print_cocktail_elements
     end
 
     def random_index_full_list
@@ -34,10 +39,25 @@ class Random
         #PrintCocktail.total_cocktails
     end
 
+    # IMPORTANT
+    def random_index_name
+        name = @cocktails[@selected_index[-1]][:name]
+    end
+
+    # def random_cocktail
+    #     name = ''
+    #     loop  do
+    #         name = @cocktails[:name].value.sample 
+    #         break unless @selected_index.include?(name)
+    #     end
+    #     @selected_names << name
+    #     p @selected_names
+    # end
+
     #does not work - worked when sitting in app.rb 
     #also unsure if want to clear - could use to exclude array numbers from random index selection
     def clear_selected_index
-        selected_index = []
+        @selected_index = []
     end
 
     # selected_index.map do |index|

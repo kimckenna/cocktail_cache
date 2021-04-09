@@ -28,22 +28,22 @@ module PrintCocktail
         end
     end
 
-    def cocktail_elements(cocktail_index)
-        system 'clear'
-        selected_cocktail(cocktail_index).each do |key, value|
-            if key == :name
-                title(value)
-            elsif key == :ingredients 
-                puts "\n\nIngredients:"
-                cocktail_ingredients(cocktail_index)
-            elsif key == :preparation
-                puts "\n\n#{key.capitalize}:"
-                preparation_split(value)
-            else
-                puts "\n#{key.capitalize}: #{value}"
-            end
-        end
-    end
+    # def cocktail_elements(cocktail_index)
+    #     system 'clear'
+    #     selected_cocktail(cocktail_index).each do |key, value|
+    #         if key == :name
+    #             title(value)
+    #         elsif key == :ingredients 
+    #             puts "\n\nIngredients:"
+    #             cocktail_ingredients(cocktail_index)
+    #         elsif key == :preparation
+    #             puts "\n\n#{key.capitalize}:"
+    #             preparation_split(value)
+    #         else
+    #             puts "\n#{key.capitalize}: #{value}"
+    #         end
+    #     end
+    # end
 
     def print_cocktail_elements
         system 'clear'
