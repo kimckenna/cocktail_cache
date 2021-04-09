@@ -75,15 +75,29 @@ module PrintCocktail
     def total_cocktails
         p @cocktails.length - 1
     end
-    
-    # def cocktail_index
-    #     1
-    # end
 
-    # def favourite
-    #     if favourite_toggle == "yes"
 
-    # end 
+
+
+    #### EXTRA CODE FOR LISTS
+    def all_cocktail_ingredients
+        all_ingredients = []
+        @cocktails.each do |cocktail|
+            cocktail[:ingredients].each do |ingredient| 
+                ingredient.map do |key, value|
+                    if key == "ingredient"
+                        unless all_ingredients.include?(value) == true
+                            all_ingredients << value
+                        end 
+                    end
+                end
+            end
+        end
+        all_ingredients
+    end
+
+
+
     def load_cocktail_data(file_path)
         json_cocktail_data = JSON.parse(File.read(file_path))
         @cocktails = json_cocktail_data.map do |cocktail|
