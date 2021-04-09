@@ -39,6 +39,25 @@ class App
         end
     end
 
+
+    # def primary_app_run
+        
+    #         system "clear"
+    #         title_name(app_name)
+    #         puts "Hello! \nThank you for downloading Cocktail Cache. \nUnfortunatley an error may have occured during the installation of this app that will impact it's core function. \nPlease try recloning from: https://github.com/kimckenna/cocktail_cache"
+    # else
+    #         system "clear"
+    #         title_name(app_name)
+    #         puts
+    #         @user.user_run
+    #         loop do
+    #         system "clear"
+    #         title_name(app_name)
+    #         main_menu_selection(main_menu_options)
+    #         end 
+    #     end
+    # end
+
     def font_block
         font_block = TTY::Font.new(:block)
     end
