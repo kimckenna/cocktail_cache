@@ -7,17 +7,24 @@ require 'artii'
 module PrintCocktail
     attr_accessor :cocktails
 
-    def selected_cocktail(cocktail_index)
-        @cocktails[cocktail_index]
+    def selected_cocktail
+        @cocktails[@index]
     end
 
     def selected_cocktail_name(cocktail_index)
         cocktail_name = @cocktails[cocktail_index][:name]
     end
 
-    def cocktail_name
+
+
+    # def selected_cocktail_name(input)
+    #     if @cocktails.include?(input)
+    #     cocktail_name = @cocktails[cocktail_index][:name]
+    # end
+
+    def cocktail_names
         @cocktails.each do |cocktail|
-            puts "Cocktail Name: #{cocktail[:name]}"
+            cocktail[:name]
         end
     end
 
@@ -38,8 +45,39 @@ module PrintCocktail
         end
     end
 
-    def cocktail_ingredients(cocktail_index)
-        selected_cocktail(cocktail_index)[:ingredients].each do |value| 
+    def print_cocktail_elements
+        system 'clear'
+        selected_cocktail.each do |key, value|
+            if key == :name
+                title(value)
+            elsif key == :ingredients 
+                puts "\n\nIngredients:"
+                cocktail_ingredients
+            elsif key == :preparation
+                puts "\n\n#{key.capitalize}:"
+                preparation_split(value)
+            else
+                puts "\n#{key.capitalize}: #{value}"
+            end
+        end
+    end
+
+    def cocktail_index
+        @index = 0
+    end
+
+    def selected_cocktail_index(input)
+        system 'clear'
+        @cocktails.each do |cocktail|
+            if cocktail[:name] == (input)
+                @index = @cocktails.index(cocktail)
+            end
+        end
+        @index
+    end
+
+    def cocktail_ingredients
+        selected_cocktail[:ingredients].each do |value| 
             unless value["special"]
                 puts " \n   #{value["ingredient"]}: #{value["amount"]}#{value["unit"]}"
             else 
@@ -47,6 +85,16 @@ module PrintCocktail
             end
         end
     end
+
+    # def cocktail_ingredients(cocktail_index)
+    #     selected_cocktail(cocktail_index)[:ingredients].each do |value| 
+    #         unless value["special"]
+    #             puts " \n   #{value["ingredient"]}: #{value["amount"]}#{value["unit"]}"
+    #         else 
+    #             puts " \n   #{value["special"]}"
+    #         end
+    #     end
+    # end
 
     def title(value)
         title = value.split(' ')
@@ -80,21 +128,21 @@ module PrintCocktail
 
 
     #### EXTRA CODE FOR LISTS
-    def all_cocktail_ingredients
-        all_ingredients = []
-        @cocktails.each do |cocktail|
-            cocktail[:ingredients].each do |ingredient| 
-                ingredient.map do |key, value|
-                    if key == "ingredient"
-                        unless all_ingredients.include?(value) == true
-                            all_ingredients << value
-                        end 
-                    end
-                end
-            end
-        end
-        all_ingredients
-    end
+    # def all_cocktail_ingredients
+    #     all_ingredients = []
+    #     @cocktails.each do |cocktail|
+    #         cocktail[:ingredients].each do |ingredient| 
+    #             ingredient.map do |key, value|
+    #                 if key == "ingredient"
+    #                     unless all_ingredients.include?(value) == true
+    #                         all_ingredients << value
+    #                     end 
+    #                 end
+    #             end
+    #         end
+    #     end
+    #     all_ingredients
+    # end
 
 
 
@@ -112,4 +160,4 @@ end
 include PrintCocktail
 PrintCocktail.load_cocktail_data('data/cocktails.json')
 #PrintCocktail.cocktail_elements(cocktail_index)
-PrintCocktail.total_cocktails
+#PrintCocktail.total_cocktails

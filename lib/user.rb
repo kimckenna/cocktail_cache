@@ -77,7 +77,7 @@ class User
         #     { name: user[:user], value: index }
         # end
         @current_user = prompt.select('Select from Existing Users:', @users.keys, filter: true)
-        p @current_user
+        @current_user
     end 
 
     def existing_user_index(existing_user_options)

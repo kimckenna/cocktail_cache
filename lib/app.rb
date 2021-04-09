@@ -33,7 +33,7 @@ class App
         puts
         @user.user_run
         loop do
-        system "clear"
+        #system "clear" add back in once able to add secondary menu to search and favourites
         title_name(app_name)
         main_menu_selection(main_menu_options)
         end
@@ -69,6 +69,7 @@ class App
             print font_block.write(word)
         end
     end
+
     def app_name
         'Cocktail Cache'
     end
@@ -83,7 +84,7 @@ class App
     def main_menu_selection(main_menu_options)
         case main_menu_options
         when 1
-                @random.random_run
+            @random.random_run
              
             while @run_sub_menu
                 random_cocktail_menu_selection(random_cocktail_view_menu)
