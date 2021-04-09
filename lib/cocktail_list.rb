@@ -50,7 +50,9 @@ class List
     def search_type_selection(search)
         case search
         when 1
+            system 'clear'
             title_name(search_alcohol_title) 
+            search_alcohol
         when 2
             title_name(search_all_title)
             PrintCocktail.cocktail_elements(search_all_cocktails)
@@ -166,8 +168,8 @@ class List
     end
 end
 
-list = List.new('data/cocktails.json')
-list.testing_run
+#list = List.new('data/cocktails.json')
+#list.testing_run
 
 
     # def load_cocktail_data(file_path)
