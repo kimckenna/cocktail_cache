@@ -23,7 +23,7 @@ class Random
         #p @cocktails[0]
         # p @cocktails[0][:name]
         #PrintCocktail.cocktail_elements(@selected_index[-1])
-        PrintCocktail.selected_cocktail_index(random_index_name)
+        PrintCocktail.selected_cocktail_index(PrintCocktail.selected_cocktail_name(@selected_index[-1]))
         PrintCocktail.print_cocktail_elements
     end
 
@@ -40,9 +40,9 @@ class Random
     end
 
     # IMPORTANT
-    def random_index_name
-        name = @cocktails[@selected_index[-1]][:name]
-    end
+    # def random_index_name
+    #     name = @cocktails[@selected_index[-1]][:name]
+    # end
 
     # def random_cocktail
     #     name = ''
