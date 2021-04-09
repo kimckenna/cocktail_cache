@@ -92,7 +92,7 @@ class App
                 # p @user.users
             end
         when 2
-            @favourite.favourites_run(@user)
+            @favourite.favourite_run(@user)
         when 3
             @list.list_run
 

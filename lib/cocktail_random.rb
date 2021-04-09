@@ -39,6 +39,10 @@ class Random
         #PrintCocktail.total_cocktails
     end
 
+    def clear_selected_index
+        @selected_index = []
+    end
+
     # IMPORTANT
     # def random_index_name
     #     name = @cocktails[@selected_index[-1]][:name]
@@ -56,9 +60,6 @@ class Random
 
     #does not work - worked when sitting in app.rb 
     #also unsure if want to clear - could use to exclude array numbers from random index selection
-    def clear_selected_index
-        @selected_index = []
-    end
 
     # selected_index.map do |index|
     #     selected_index.pop
