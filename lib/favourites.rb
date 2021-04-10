@@ -2,6 +2,7 @@ require_relative 'cocktail_card_module'
 require_relative 'cocktail_list'
 require_relative 'cocktail_random'
 require_relative 'app'
+require_relative 'user'
 
 require 'json'
 require 'tty-prompt'
@@ -15,15 +16,22 @@ class Favourite
 
   def initialize(file_path)
     @file_path = file_path
-    # @user = User.new('data/users.json')
     # @app = App.new()
     @list = List.new('data/cocktails.json')
     @random = Random.new('data/cocktails.json')
     @favourites = []
     @current_user = ''
-    @unfavourite = []
-    @favourites_hash = {}
+    # @favourites_hash = {}
   end
+
+#   def user_file_methods(user)
+#     @user = user.users
+#     @current_user = user.current_user
+#     @current_user_favourites = user.current_user_favourites
+#     @remove_from_favourites = user.remove_from_favourites
+#     @favourites_management = user.favourites_management
+#     @display_favourites = user.display_favourites
+#   end
 
   def favourite_run(user)
     #user_favourites_selection(user_favourites(user))
@@ -33,6 +41,8 @@ class Favourite
   def choice_of_user(user)
     @user = user.users
     @current_user = user.current_user
+    @current_user_favourites = user.current_user_favourites
+
     if @user.length == 1
         user_favourites_options(favourites_options_menu)
       else
@@ -46,20 +56,50 @@ class Favourite
 
   def user_favourites(user)
     prompt = TTY::Prompt.new
-    @user = user.users
-    @current_user = user.current_user
+    #@user = user.users
+    
+    
     user_options = { "#{user.current_user.capitalize}'s Favourites": 1, "Other User Favourites": 2,
                      "Return to Main Menu": 3 }
     prompt.select('Make a Selection:', user_options)
   end
 
-  def user_favourites_selection(user_favourites)
-    case user_favourites
+  def user_favourites_selection(options)
+    case options
     when 1
       user_favourites_options(favourites_options_menu)
     when 2
     when 3
       # @app.main_menu_selection(main_menu_options)
+    end
+  end
+
+  def display_favourites
+    # favourites_hash = @user.fetch(@current_user)
+    # @favourites_hash = favourites_hash.fetch('favourites')
+    p @current_user_favourites
+    @current_user_favourites.map do |favourite|
+      favourite.fetch('cocktail_name')
+    end
+  end
+
+  def favourites_management
+    prompt = TTY::Prompt.new
+    @unfavourite = prompt.multi_select('Select the Cocktail/s you wish to delete from Favourites: ', display_favourites)
+  end
+
+  def remove_from_favourites
+    @unfavourite.each do |cocktail|
+        p "cocktail: #{cocktail}"
+        @current_user_favourites.each do |hash|
+            p "hash: #{hash}"
+            hash.each_value do |value|
+                if value == cocktail
+                    @current_user_favourites.delete(hash)
+                    p @current_user_favourites
+                end
+            end
+        end
     end
   end
 
@@ -93,7 +133,7 @@ class Favourite
     when 1
       favourites_random_name(@random.random_index_full_list(favourites_length))
       # p @random.random_index_full_list(favourites_length)
-      display_favourites
+      @display_favourites
     #   p @random.selected_index[-1]
     #   p user_cocktail_name(@random.selected_index[-1])
       #p @favourites_hash
@@ -108,8 +148,8 @@ class Favourite
         favourites_management
         p @unfavourite
         display_favourites
-        p @favourites_hash
-        #remove_from_favourites
+        remove_from_favourites
+        p @current_user_favourites
     when 4
         # @app.main_menu_selection(main_menu_options)
     end
@@ -121,29 +161,6 @@ class Favourite
 #       @index = @cocktails.index(cocktail) if cocktail[:name] == (input)
 #     end
 #     @index
-#   end
-
-  def favourites_management
-    prompt = TTY::Prompt.new
-    @unfavourite = prompt.multi_select('Select the Cocktail/s you wish to delete from Favourites: ', display_favourites)
-  end
-
-  def display_favourites
-    favourites_hash = @user.fetch(@current_user)
-    @favourites_hash = favourites_hash.fetch('favourites')
-    @favourites_hash.map do |favourite|
-      favourite.fetch('cocktail_name')
-    end
-  end
-
-#   def remove_from_favourites
-#     @favourites_hash.each do |cocktail|
-#         cocktail.each do |key, value|
-#             if @unfavourite.include?(key)
-#                 cocktail.delete(key)
-#             end
-#         end
-#     end
 #   end
 
   def user_cocktail_name(index)

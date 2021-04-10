@@ -115,6 +115,7 @@ class App
       @favourite.favourite_run(@user)
       # while @run_sub_menu
       # end
+      @user.file_write
     when 3
       @list.list_run
       # while @run_sub_menu

@@ -1,21 +1,24 @@
 require_relative 'app'
+require_relative 'favourites'
 require 'json'
 require 'tty-prompt'
 require 'colorize'
 
 # class InvalidUserSelection < StandardError
 # end
-
+# Responsible for management of users.json - users and favourites
 class User
   attr_accessor :users, :add_favourite
-  attr_reader :current_user, :current_user_favourites
+  attr_reader :current_user, :current_user_favourites, :unfavourite
 
   def initialize(file_path)
     @file_path = file_path
     load_user_data(file_path)
+    @favourite = Favourite.new('data/cocktails.json')
     @current_user = ''
     @add_favourite = {}
     @current_user_favourites = []
+    @unfavourite = []
   end
 
   def user_run
@@ -72,6 +75,10 @@ class User
     }
     File.write(@file_path, @users.to_json)
     p @current_user_favourites
+  end
+
+  def file_write
+    File.write(@file_path, @users.to_json)
   end
 
 #   def add_favourite(_user, cocktail_index)
