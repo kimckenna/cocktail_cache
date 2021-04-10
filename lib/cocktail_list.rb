@@ -18,28 +18,20 @@ class List
   end
 
   def list_run
-    # cocktail_names
-    # category_menu
-    system 'clear'
-    title_name(search_page_title)
     search_type_selection(search_type)
   end
 
-  def title_name(page_name)
-    title = page_name.split(' ')
+  def title_name(name)
+    title = name.split(' ')
     title.each do |word|
-      # print font_dotmatrix.asciify(word)
       print font_block.write(word)
     end
-  end
-
-  def search_page_title
-    'Cocktail Search'
+    puts
   end
 
   def search_type
     prompt = TTY::Prompt.new
-    user_type = { "Search Cocktails By Alcohol": 1, "Search All Cocktails": 2 }
+    user_type = { "Search Cocktails By Alcohol": 1, "Search all Cocktails": 2 }
     prompt.select('Make a Selection:', user_type)
   end
 
@@ -48,6 +40,7 @@ class List
     when 1
       system 'clear'
       title_name(search_alcohol_title)
+      puts
       cocktails_including_selected_alcohol(search_alcohol)
       selected_cocktail(PrintCocktail.selected_cocktail_index(search_cocktails(@cocktails_select_alcohol)))
       PrintCocktail.print_cocktail_elements
@@ -55,6 +48,7 @@ class List
     when 2
       system 'clear'
       title_name(search_all_title)
+      puts
       selected_cocktail(PrintCocktail.selected_cocktail_index(search_cocktails(PrintCocktail.cocktail_names)))
       PrintCocktail.print_cocktail_elements
     end
@@ -65,7 +59,7 @@ class List
   end
 
   def search_all_title
-    'Search All Cocktails'
+    'Search all Cocktails'
   end
 
   def search_cocktails(input)
@@ -84,16 +78,11 @@ class List
     # @alcohol_selection
   end
 
-  # if cocktail includes alcohol selection
-  # push cocktail name into an array
-  # display all cocktail names including alcohol selection as list for user to choose from
   def cocktails_including_selected_alcohol(search)
     @cocktails.each do |cocktail|
       cocktail['ingredients'].each do |ingredient|
         if ingredient.value?(@selected_alcohol)
-          # p true
           @cocktails_select_alcohol << cocktail['name']
-          #p @cocktails_select_alcohol
         end
       end
     end
@@ -130,70 +119,32 @@ class List
     alcohol.delete('Cola')
     alcohol
   end
-
-  ##### END OF CURRENT USEFUL CODE
-
-  def categories
-    category = []
-    # puts "Categories:"
-    cocktail_category.each do |value|
-      category << value unless category.include?(value) == true
-    end
-    category
-  end
-
-  def category_menu
-    i = 0
-    until i >= categories.length - 1
-      puts "\n#{categories[i]}\n\n"
-      @cocktails.each do |cocktail|
-        puts "   #{cocktail['name']}" if cocktail['category'] == categories[i]
-      end
-      i += 1
-    end
-  end
-
-  def cocktail_category
-    @cocktails.map do |cocktail|
-      cocktail['category']
-      # if cocktail[:category] == nil
-      #     @cocktails{} << "category" => "Something Stronger"
-      # end
-    end
-  end
-
-  # def cocktail_names
-  #     @cocktails.each do |cocktail|
-  #         puts "   #{cocktail[:name]}"
-  #     end
-  # end
-
-  # def testing_run
-  #     system "clear"
-
-  #     PrintCocktail.cocktail_elements(search_all_cocktails)
-
-  #     #title_name(search_page_title)
-  #     # p full_cocktail_list_ingredients
-  #     # p alcohol_ingredients
-  #     #search_alcohol
-
-  #     #p full_cocktail_list_ingredients
-  #     #p PrintCocktail.unsorted_cocktail_ingredients
-  #     #cocktail_ingredients_list
-  #     #PrintCocktail.cocktail_elements(full_cocktail_list_selection)
-
-  # end
-
-  # def search_all_cocktails
-  #     prompt = TTY::Prompt.new
-  #     menu_options = @cocktails.map.with_index do |cocktail, index|
-  #         { name: cocktail[:name], value: index }
-  #     end
-  #     user_selection = prompt.select('Choose a Cocktail: ', menu_options, filter: true)
-  #     p user_selection
-  # end
 end
 
-# list = List.new('data/cocktails.json')
-# list.list_run
+# CODE FOR SEARCH BY CATEGORIES
+#   def categories
+#     category = []
+#     # puts "Categories:"
+#     cocktail_category.each do |value|
+#       category << value unless category.include?(value) == true
+#     end
+#     category
+#   end
+
+#   def category_menu
+#     i = 0
+#     until i >= categories.length - 1
+#       puts "\n#{categories[i]}\n\n"
+#       @cocktails.each do |cocktail|
+#         puts "   #{cocktail['name']}" if cocktail['category'] == categories[i]
+#       end
+#       i += 1
+#     end
+#   end
+
+#   def cocktail_category
+#     @cocktails.map do |cocktail|
+#       cocktail['category']
+#     end
+#   end
+

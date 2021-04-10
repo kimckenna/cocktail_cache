@@ -43,17 +43,26 @@ class App
 #     font_block = TTY::Font.new(:block)
 #   end
 
-  def title_name(app_name)
-    title = app_name.split(' ')
+  def title_name(name)
+    title = name.split(' ')
     title.each do |word|
-      # print font_dotmatrix.asciify(word)
       print @font_block.write(word)
     end
+    puts
   end
 
   def app_name
     'Cocktail Cache'
   end
+
+  def fav_title
+    "Favourites"
+  end
+
+  def search_title
+    "Cocktail Search"
+  end
+
 
   def main_menu_options
     prompt = TTY::Prompt.new
@@ -94,13 +103,19 @@ class App
       @run_sub_menu = true
       p @run_sub_menu
     when 2
-        @favourite.favourite_run(@user)
-        @user.file_write
+      system 'clear'
+      title_name(fav_title)
+      puts
+      @favourite.favourite_run(@user)
+      @user.file_write
       while @run_sub_menu
         fav_sub_options(fav_sub_menu)
       end
       @run_sub_menu = true
     when 3
+      system 'clear'
+      title_name(search_title)
+      puts
       @list.list_run
       while @run_sub_menu
         list_sub_options(sub_menu('Return to Search Menu'))
@@ -170,16 +185,11 @@ class App
     case selection
     when 1
       system 'clear'
-      title_name(fav_sub_title)
+      title_name(fav_title)
       @favourite.favourite_run(@user)
       @user.file_write
     when 2
       @run_sub_menu = false
     end
   end
-
-  def fav_sub_title
-    "Favourites"
-  end
-
 end
