@@ -39,24 +39,6 @@ class App
     end
   end
 
-  # def primary_app_run
-
-  #         system "clear"
-  #         title_name(app_name)
-  #         puts "Hello! \nThank you for downloading Cocktail Cache. \nUnfortunatley an error may have occured during the installation of this app that will impact it's core function. \nPlease try recloning from: https://github.com/kimckenna/cocktail_cache"
-  # else
-  #         system "clear"
-  #         title_name(app_name)
-  #         puts
-  #         @user.user_run
-  #         loop do
-  #         system "clear"
-  #         title_name(app_name)
-  #         main_menu_selection(main_menu_options)
-  #         end
-  #     end
-  # end
-
 #   def font_block
 #     font_block = TTY::Font.new(:block)
 #   end
@@ -107,7 +89,7 @@ class App
     when 1
       @random.random_run
       while @run_sub_menu
-        random_cocktail_menu_selection(random_cocktail_view_menu)
+        random_sub_menu(sub_menu('Run Again'))
         # p @user.users[@user.current_user]['favourites']
         # p @user.users
       end
@@ -118,8 +100,9 @@ class App
       @user.file_write
     when 3
       @list.list_run
-      # while @run_sub_menu
-      # end
+      while @run_sub_menu
+        list_sub_menu(sub_menu('Return to Search Menu'))
+      end
     when 4
       @user.user_run
     when 5
@@ -128,47 +111,22 @@ class App
     end
   end
 
-  # def main_menu_selection(menu)
-  #   case menu
-  #   when 1
-  #     @random.random_run
-  #     while @run_sub_menu
-  #       random_cocktail_menu_selection(random_cocktail_view_menu)
-  #       # p @user.users[@user.current_user]['favourites']
-  #       # p @user.users
-  #     end
-  #   when 2
-  #     @favourite.favourite_run(@user)
-  #     # while @run_sub_menu
-  #     # end
-  #   when 3
-  #     @list.list_run
-  #     # while @run_sub_menu
-  #     # end
-  #   when 4
-  #     @user.user_run
-  #   when 5
-  #     system 'clear'
-  #     exit
-  #   end
-  # end
-
   def load_user_data(file_path)
     json_user_data = JSON.parse(File.read(file_path))
     @user = json_user_data
   end
 
-  def random_cocktail_view_menu
+  def sub_menu(input)
     prompt = TTY::Prompt.new
-    cocktail_menu_options = { "Add to Favourites": 1, "Run Again": 2, "Exit to Main Menu": 3 }
-    prompt.select('Make a Selection:', cocktail_menu_options)
+    options = { "Add to Favourites": 1, "#{input}": 2, "Exit to Main Menu": 3 }
+    prompt.select('Make a Selection:', options)
   end
 
   def user_favourite_array
     @user.users[@user.current_user]['favourites']
   end
 
-  def random_cocktail_menu_selection(selection)
+  def random_sub_menu(selection)
     case selection
     when 1
       # @favourite.favourite_cocktail(user_favourite_array, 1)
@@ -185,13 +143,18 @@ class App
     end
   end
 
-  # def random_cocktail_view_menu
-  #   prompt = TTY::Prompt.new
-  #   cocktail_menu_options = { "Run Random Cocktail from ": 1, "Exit to Main Menu": 2, "Return to Favourites Menu": 3 }
-  #   prompt.select('Make a Selection:', cocktail_menu_options)
-  # end
+  def list_sub_menu(selection)
+    case selection
+    when 1
+      # @favourite.favourite_cocktail(user_favourite_array, 1)
+      @user.add_favourite(user_favourite_array, @list.selected_index_list[-1])
+    when 2
+      system 'clear'
+      @list.list_run
+    when 3
+      # main_menu_selection(main_menu_options)
+      @run_sub_menu = false
+    end
+  end
 
-  # def favourites_cocktail_menu_selection(cocktail_view_menu)
-
-  # end
 end

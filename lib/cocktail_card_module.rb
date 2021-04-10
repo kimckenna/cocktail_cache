@@ -132,4 +132,4 @@ include PrintCocktail
 PrintCocktail.load_cocktail_data('data/cocktails.json')
 # PrintCocktail.cocktail_elements(cocktail_index)
 #p PrintCocktail.selected_cocktail_name(1)
-p PrintCocktail.cocktail_names
+#p PrintCocktail.cocktail_names

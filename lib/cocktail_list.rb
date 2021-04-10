@@ -7,12 +7,14 @@ require 'colorize'
 class List
   include PrintCocktail
   attr_accessor :cocktails
+  attr_reader :selected_index_list
 
   def initialize(file_path)
     @file_path = file_path
     load_cocktail_data(file_path)
     @selected_alcohol = ''
     @cocktails_select_alcohol = []
+    @selected_index_list = []
   end
 
   def list_run
@@ -47,15 +49,19 @@ class List
       system 'clear'
       title_name(search_alcohol_title)
       cocktails_including_selected_alcohol(search_alcohol)
-      PrintCocktail.selected_cocktail_index(search_cocktails(@cocktails_select_alcohol))
+      selected_cocktail(PrintCocktail.selected_cocktail_index(search_cocktails(@cocktails_select_alcohol)))
       PrintCocktail.print_cocktail_elements
       @cocktails_select_alcohol = []
     when 2
       system 'clear'
       title_name(search_all_title)
-      PrintCocktail.selected_cocktail_index(search_cocktails(PrintCocktail.cocktail_names))
+      selected_cocktail(PrintCocktail.selected_cocktail_index(search_cocktails(PrintCocktail.cocktail_names)))
       PrintCocktail.print_cocktail_elements
     end
+  end
+
+  def selected_cocktail(index)
+    @selected_index_list << (index)
   end
 
   def search_all_title
