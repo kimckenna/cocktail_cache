@@ -16,11 +16,6 @@ module PrintCocktail
     @cocktails[cocktail_index]['name']
   end
 
-  # def selected_cocktail_name(input)
-  #     if @cocktails.include?(input)
-  #     cocktail_name = @cocktails[cocktail_index][:name]
-  # end
-
   def cocktail_names
     cocktail_names = []
     @cocktails.each do |cocktail|
@@ -42,7 +37,6 @@ module PrintCocktail
       elsif key == 'ingredients'
         puts "\n\nIngredients:"
         cocktail_ingredients
-        #had (cocktail_index)??? - ignore
       elsif key == 'preparation'
         puts "\n\n#{key.capitalize}:"
         preparation_split(value)
@@ -78,9 +72,9 @@ module PrintCocktail
     font_block = TTY::Font.new(:block)
     title = value.split(' ')
     title.each do |word|
-      # print font_dotmatrix.asciify(word)
       print font_block.write(word)
     end
+    puts
   end
 
   def preparation_split(value)
@@ -103,23 +97,6 @@ module PrintCocktail
     p @cocktails.length - 1
   end
 
-  #### EXTRA CODE FOR LISTS
-  # def all_cocktail_ingredients
-  #     all_ingredients = []
-  #     @cocktails.each do |cocktail|
-  #         cocktail[:ingredients].each do |ingredient|
-  #             ingredient.map do |key, value|
-  #                 if key == "ingredient"
-  #                     unless all_ingredients.include?(value) == true
-  #                         all_ingredients << value
-  #                     end
-  #                 end
-  #             end
-  #         end
-  #     end
-  #     all_ingredients
-  # end
-
   def load_cocktail_data(file_path)
     json_cocktail_data = JSON.parse(File.read(file_path))
     @cocktails = json_cocktail_data
@@ -130,6 +107,3 @@ end
 # cocktails = PrintCocktail.new('data/cocktails.json')
 include PrintCocktail
 PrintCocktail.load_cocktail_data('data/cocktails.json')
-# PrintCocktail.cocktail_elements(cocktail_index)
-#p PrintCocktail.selected_cocktail_name(1)
-#p PrintCocktail.cocktail_names

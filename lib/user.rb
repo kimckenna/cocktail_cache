@@ -88,6 +88,10 @@ class User
     p @current_user_favourites
   end
 
+  def check_cocktail_name(index)
+    PrintCocktail.selected_cocktail_name(index)
+  end
+
   def file_write
     File.write(@file_path, @users.to_json)
   end

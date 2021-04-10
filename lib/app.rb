@@ -10,7 +10,7 @@ require 'tty-prompt'
 require 'colorize'
 require 'artii'
 
-# users = User.new('data/users.json')
+# Central class of app - runs other class menus and holds sub menu for favourites, list and random. Passes info from user to other menus 
 
 class App
   attr_accessor :users
@@ -23,7 +23,7 @@ class App
     @favourite = Favourite.new('data/users.json')
     @run_sub_menu = true
     @font_block = TTY::Font.new(:block)
-    # load_users
+    @already_favourite = false
   end
 
   def primary_app_run
@@ -35,10 +35,6 @@ class App
       favourites_exist_check
     end
   end
-
-#   def font_block
-#     font_block = TTY::Font.new(:block)
-#   end
 
   def title_name(name)
     title = name.split(' ')
@@ -95,10 +91,10 @@ class App
     when 1
       @random.random_run
       while @run_sub_menu
-        random_sub_options(sub_menu('Run Again'))
+        check_cocktail_already_favourite(@user.check_cocktail_name(@random.selected_index[-1]))
+        check_cocktail_menu_random('Run Again')
       end
       @run_sub_menu = true
-      p @run_sub_menu
     when 2
       system 'clear'
       title_name(fav_title)
@@ -115,7 +111,8 @@ class App
       puts
       @list.list_run
       while @run_sub_menu
-        list_sub_options(sub_menu('Return to Search Menu'))
+        check_cocktail_already_favourite(@user.check_cocktail_name(@list.selected_index_list[-1]))
+        check_cocktail_menu_list('Search Again')
       end
       @run_sub_menu = true
     when 4
@@ -132,9 +129,45 @@ class App
     @user = json_user_data
   end
 
+  def check_cocktail_already_favourite(cocktail)
+    @user.current_user_favourites.each do |hash|
+      if hash.value?(cocktail) == true
+        @already_favourite = true
+      end
+    end
+  end
+
+  def check_cocktail_menu_list(input)
+    if @already_favourite == true
+      list_sub_options(sub_menu_disabled(input))
+      @already_favourite = false
+    else
+      list_sub_options(sub_menu(input))
+    end
+  end
+
+  def check_cocktail_menu_random(input)
+    if @already_favourite == true
+      random_sub_options(sub_menu_disabled(input))
+      @already_favourite = false
+    else
+      random_sub_options(sub_menu(input))
+    end
+  end
+
   def sub_menu(input)
     prompt = TTY::Prompt.new
     options = { "Add to Favourites": 1, "#{input}": 2, "Exit to Main Menu": 3 }
+    prompt.select('Make a Selection:', options)
+  end
+
+  def sub_menu_disabled(input)
+    prompt = TTY::Prompt.new
+    options = [
+      {name: "Add to Favourites", value: 1, disabled: "   (This cocktail is already favourited)"}, 
+      {name: "#{input}", value: 2}, 
+      {name: "Exit to Main Menu", value: 3}, 
+    ]
     prompt.select('Make a Selection:', options)
   end
 
@@ -145,16 +178,12 @@ class App
   def random_sub_options(selection)
     case selection
     when 1
-      # @favourite.favourite_cocktail(user_favourite_array, 1)
       @user.add_favourite(user_favourite_array, @random.selected_index[-1])
     when 2
       system 'clear'
       @random.random_run
     when 3
-
       @random.clear_selected_index
-      # main_menu_selection(main_menu_options)
-      p @random.selected_index
       @run_sub_menu = false
     end
   end
@@ -162,13 +191,13 @@ class App
   def list_sub_options(selection)
     case selection
     when 1
-      # @favourite.favourite_cocktail(user_favourite_array, 1)
       @user.add_favourite(user_favourite_array, @list.selected_index_list[-1])
     when 2
       system 'clear'
+      title_name(search_title)
+      puts
       @list.list_run
     when 3
-      # main_menu_selection(main_menu_options)
       @run_sub_menu = false
     end
   end
