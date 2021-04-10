@@ -154,9 +154,7 @@ class App
 
   def load_user_data(file_path)
     json_user_data = JSON.parse(File.read(file_path))
-    @user = json_user_data.map do |user|
-      user.transform_keys(&:to_sym)
-    end
+    @user = json_user_data
   end
 
   def random_cocktail_view_menu

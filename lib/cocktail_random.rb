@@ -9,7 +9,7 @@ class Random
 
   def initialize(file_path)
     @file_path = file_path
-    load_cocktail_data(file_path)
+    #load_cocktail_data(file_path)
     # load_users
     @selected_index = []
   end

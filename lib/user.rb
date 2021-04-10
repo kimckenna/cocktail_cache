@@ -7,7 +7,7 @@ require 'colorize'
 # end
 
 class User
-  attr_accessor :users, :added_favourite
+  attr_accessor :users, :add_favourite
   attr_reader :current_user, :current_user_favourites
 
   def initialize(file_path)
@@ -59,7 +59,7 @@ class User
   def create_new_user
     puts display_input_user_name
     @current_user = user_name
-    @current_user_favourites = @users[current_user]['favourites']
+    #@current_user_favourites = @users[current_user]['favourites']
     add_user(@current_user)
     # user_index = new_user_name_index
     # puts user_index
@@ -68,7 +68,7 @@ class User
   def add_favourite(_user, cocktail_index)
     # @current_user_favourites = @users[current_user]['favourites']
     @add_favourite =  @current_user_favourites << {
-      'cocktail_name': PrintCocktail.selected_cocktail_name(cocktail_index), 'favourite': true
+      'cocktail_name'=> PrintCocktail.selected_cocktail_name(cocktail_index), 'favourite'=> true
     }
     File.write(@file_path, @users.to_json)
     p @current_user_favourites

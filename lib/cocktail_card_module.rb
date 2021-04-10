@@ -13,7 +13,7 @@ module PrintCocktail
   end
 
   def selected_cocktail_name(cocktail_index)
-    @cocktails[cocktail_index][:name]
+    @cocktails[cocktail_index]['name']
   end
 
   # def selected_cocktail_name(input)
@@ -23,7 +23,7 @@ module PrintCocktail
 
   def cocktail_names
     @cocktails.each do |cocktail|
-      cocktail[:name]
+      cocktail['name']
     end
   end
 
@@ -31,12 +31,12 @@ module PrintCocktail
     # system 'clear'
     selected_cocktail.each do |key, value|
       # don't convert to case/when as breaks formatting
-      if key == :name
+      if key == 'name'
         title(value)
-      elsif key == :ingredients
+      elsif key == 'ingredients'
         puts "\n\nIngredients:"
         cocktail_ingredients
-      elsif key == :preparation
+      elsif key == 'preparation'
         puts "\n\n#{key.capitalize}:"
         preparation_split(value)
       else
@@ -52,13 +52,13 @@ module PrintCocktail
   def selected_cocktail_index(input)
     system 'clear'
     @cocktails.each do |cocktail|
-      @index = @cocktails.index(cocktail) if cocktail[:name] == (input)
+      @index = @cocktails.index(cocktail) if cocktail['name'] == (input)
     end
     @index
   end
 
   def cocktail_ingredients
-    selected_cocktail[:ingredients].each do |value|
+    selected_cocktail['ingredients'].each do |value|
       if value['special']
         puts " \n   #{value['special']}"
       else
@@ -115,9 +115,7 @@ module PrintCocktail
 
   def load_cocktail_data(file_path)
     json_cocktail_data = JSON.parse(File.read(file_path))
-    @cocktails = json_cocktail_data.map do |cocktail|
-      cocktail.transform_keys(&:to_sym)
-    end
+    @cocktails = json_cocktail_data
   end
 end
 
