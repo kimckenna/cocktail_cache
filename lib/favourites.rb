@@ -12,7 +12,8 @@ require 'artii'
 # Includes menus for Favourite feature options and utilises random_cocktail & list_cocktail for their functionality
 class Favourite
   include PrintCocktail
-  attr_accessor :users
+  attr_accessor :users #:menu
+  #attr_reader :menu
 
   def initialize(file_path)
     @file_path = file_path
@@ -21,6 +22,7 @@ class Favourite
     @random = Random.new('data/cocktails.json')
     @favourites = []
     @current_user = ''
+    #@fav_menu = true
     # @favourites_hash = {}
   end
 
@@ -124,35 +126,37 @@ class Favourite
 
   def favourites_options_menu
     prompt = TTY::Prompt.new
-    favourite_options = { "Random Favourite": 1, "View All Favourites": 2, "Favourites Management": 3, "Return to Main Menu": 4 }
+    favourite_options = { "Random Favourite": 1, "View All Favourites": 2, "Favourites Management": 3}
+    # , "Return to Main Menu": 4 
     prompt.select('Make a Selection:', favourite_options)
   end
 
   def user_favourites_options(menu)
+    # unless @current_user_favourites.empty?  
     case menu
     when 1
-      favourites_random_name(@random.random_index_full_list(favourites_length))
-      # p @random.random_index_full_list(favourites_length)
-      @display_favourites
-    #   p @random.selected_index[-1]
-    #   p user_cocktail_name(@random.selected_index[-1])
-      #p @favourites_hash
-      PrintCocktail.selected_cocktail_index(user_cocktail_name(@random.selected_index[-1]))
-      PrintCocktail.print_cocktail_elements
-
-      # PrintCocktail.selected_cocktail_index(search_cocktails(@cocktails_select_alcohol))
+        favourites_random_name(@random.random_index_full_list(favourites_length))
+        @display_favourites
+        PrintCocktail.selected_cocktail_index(user_cocktail_name(@random.selected_index[-1]))
+        PrintCocktail.print_cocktail_elements
     when 2
-      PrintCocktail.selected_cocktail_index(@list.search_cocktails(display_favourites))
-      PrintCocktail.print_cocktail_elements
+        PrintCocktail.selected_cocktail_index(@list.search_cocktails(display_favourites))
+        PrintCocktail.print_cocktail_elements
     when 3
         favourites_management
         p @unfavourite
-        display_favourites
-        remove_from_favourites
+        p display_favourites
+        p remove_from_favourites
         p @current_user_favourites
-    when 4
-        # @app.main_menu_selection(main_menu_options)
+        #@menu = false if @current_user_favourites.empty?
+    #when 4
+        #@fav_menu = false
+        #@app.favourites_exist_check
+    #@app.main_menu_selection(@app.main_menu_options)
     end
+    # else 
+    #     @menu = false   
+    # end
   end
 
 #   def user_cocktail_index(index)

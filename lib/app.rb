@@ -89,20 +89,23 @@ class App
     when 1
       @random.random_run
       while @run_sub_menu
-        random_sub_menu(sub_menu('Run Again'))
-        # p @user.users[@user.current_user]['favourites']
-        # p @user.users
+        random_sub_options(sub_menu('Run Again'))
       end
+      @run_sub_menu = true
+      p @run_sub_menu
     when 2
-      @favourite.favourite_run(@user)
-      # while @run_sub_menu
-      # end
-      @user.file_write
+        @favourite.favourite_run(@user)
+        @user.file_write
+      while @run_sub_menu
+        fav_sub_options(fav_sub_menu)
+      end
+      @run_sub_menu = true
     when 3
       @list.list_run
       while @run_sub_menu
-        list_sub_menu(sub_menu('Return to Search Menu'))
+        list_sub_options(sub_menu('Return to Search Menu'))
       end
+      @run_sub_menu = true
     when 4
       @user.user_run
     when 5
@@ -126,7 +129,7 @@ class App
     @user.users[@user.current_user]['favourites']
   end
 
-  def random_sub_menu(selection)
+  def random_sub_options(selection)
     case selection
     when 1
       # @favourite.favourite_cocktail(user_favourite_array, 1)
@@ -143,7 +146,7 @@ class App
     end
   end
 
-  def list_sub_menu(selection)
+  def list_sub_options(selection)
     case selection
     when 1
       # @favourite.favourite_cocktail(user_favourite_array, 1)
@@ -153,6 +156,23 @@ class App
       @list.list_run
     when 3
       # main_menu_selection(main_menu_options)
+      @run_sub_menu = false
+    end
+  end
+
+  def fav_sub_menu
+    prompt = TTY::Prompt.new
+    options = { "Return to Favourites Menu": 1, "Exit to Main Menu": 2 }
+    prompt.select('Make a Selection:', options)
+  end
+
+  def fav_sub_options(selection)
+    case selection
+    when 1
+      system 'clear'
+      @favourite.favourite_run(@user)
+      @user.file_write
+    when 2
       @run_sub_menu = false
     end
   end
