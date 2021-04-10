@@ -170,11 +170,16 @@ class App
     case selection
     when 1
       system 'clear'
+      title_name(fav_sub_title)
       @favourite.favourite_run(@user)
       @user.file_write
     when 2
       @run_sub_menu = false
     end
+  end
+
+  def fav_sub_title
+    "Favourites"
   end
 
 end

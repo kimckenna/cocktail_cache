@@ -1,8 +1,6 @@
 require_relative 'cocktail_card_module'
 require_relative 'cocktail_list'
 require_relative 'cocktail_random'
-require_relative 'app'
-require_relative 'user'
 
 require 'json'
 require 'tty-prompt'
@@ -12,73 +10,27 @@ require 'artii'
 # Includes menus for Favourite feature options and utilises random_cocktail & list_cocktail for their functionality
 class Favourite
   include PrintCocktail
-  attr_accessor :users #:menu
-  #attr_reader :menu
+  attr_accessor :users
 
   def initialize(file_path)
     @file_path = file_path
-    # @app = App.new()
     @list = List.new('data/cocktails.json')
     @random = Random.new('data/cocktails.json')
     @favourites = []
     @current_user = ''
-    #@fav_menu = true
-    # @favourites_hash = {}
   end
-
-#   def user_file_methods(user)
-#     @user = user.users
-#     @current_user = user.current_user
-#     @current_user_favourites = user.current_user_favourites
-#     @remove_from_favourites = user.remove_from_favourites
-#     @favourites_management = user.favourites_management
-#     @display_favourites = user.display_favourites
-#   end
 
   def favourite_run(user)
-    #user_favourites_selection(user_favourites(user))
-    choice_of_user(user)
-  end
-
-  def choice_of_user(user)
-    @user = user.users
-    @current_user = user.current_user
-    @current_user_favourites = user.current_user_favourites
-
-    if @user.length == 1
-        user_favourites_options(favourites_options_menu)
-      else
-        user_favourites_selection(user_favourites(user))
-      end
+    # KEEP : change to choice of user when have option to view other users favourites
+    # choice_of_user(user)
+    user_favourites_options(favourites_options_menu(user))
   end
 
   def title
     puts 'Favourites'
   end
 
-  def user_favourites(user)
-    prompt = TTY::Prompt.new
-    #@user = user.users
-    
-    
-    user_options = { "#{user.current_user.capitalize}'s Favourites": 1, "Other User Favourites": 2,
-                     "Return to Main Menu": 3 }
-    prompt.select('Make a Selection:', user_options)
-  end
-
-  def user_favourites_selection(options)
-    case options
-    when 1
-      user_favourites_options(favourites_options_menu)
-    when 2
-    when 3
-      # @app.main_menu_selection(main_menu_options)
-    end
-  end
-
   def display_favourites
-    # favourites_hash = @user.fetch(@current_user)
-    # @favourites_hash = favourites_hash.fetch('favourites')
     p @current_user_favourites
     @current_user_favourites.map do |favourite|
       favourite.fetch('cocktail_name')
@@ -92,47 +44,27 @@ class Favourite
 
   def remove_from_favourites
     @unfavourite.each do |cocktail|
-        p "cocktail: #{cocktail}"
         @current_user_favourites.each do |hash|
-            p "hash: #{hash}"
             hash.each_value do |value|
                 if value == cocktail
                     @current_user_favourites.delete(hash)
-                    p @current_user_favourites
+                    #@current_user_favourites
                 end
             end
         end
     end
   end
 
-#   def user_favourites(user)
-#     prompt = TTY::Prompt.new
-#     @user = user.users
-#     @current_user = user.current_user
-#     user_options = { "#{user.current_user.capitalize}'s Favourites": 1, "Other User Favourites": 2,
-#                      "Return to Main Menu": 3 }
-#     prompt.select('Make a Selection:', user_options)
-#   end
-
-#   def user_favourites_selection(user_favourites)
-#     case user_favourites
-#     when 1
-#       user_favourites_options(favourites_options_menu)
-#     when 2
-#     when 3
-#       # @app.main_menu_selection(main_menu_options)
-#     end
-#   end
-
-  def favourites_options_menu
+  def favourites_options_menu(user)
+    @user = user.users
+    @current_user = user.current_user
+    @current_user_favourites = user.current_user_favourites
     prompt = TTY::Prompt.new
     favourite_options = { "Random Favourite": 1, "View All Favourites": 2, "Favourites Management": 3}
-    # , "Return to Main Menu": 4 
     prompt.select('Make a Selection:', favourite_options)
   end
 
   def user_favourites_options(menu)
-    # unless @current_user_favourites.empty?  
     case menu
     when 1
         favourites_random_name(@random.random_index_full_list(favourites_length))
@@ -144,28 +76,11 @@ class Favourite
         PrintCocktail.print_cocktail_elements
     when 3
         favourites_management
-        p @unfavourite
-        p display_favourites
-        p remove_from_favourites
-        p @current_user_favourites
-        #@menu = false if @current_user_favourites.empty?
-    #when 4
-        #@fav_menu = false
-        #@app.favourites_exist_check
-    #@app.main_menu_selection(@app.main_menu_options)
+        display_favourites
+        remove_from_favourites
+        @current_user_favourites
     end
-    # else 
-    #     @menu = false   
-    # end
   end
-
-#   def user_cocktail_index(index)
-#     #system 'clear'
-#     @favourites_hash.each do |name|
-#       @index = @cocktails.index(cocktail) if cocktail[:name] == (input)
-#     end
-#     @index
-#   end
 
   def user_cocktail_name(index)
     display_favourites[index]
@@ -180,5 +95,32 @@ class Favourite
   end
 end
 
-# favourite = Favourite.new('data/users.json')
-# favourite.favourite_run(0)
+# FOR USE WHEN ADDING VISIBILITY OF OTHER USER FAVOURITES
+# KEEP : Conditional if only one user - use when implement option to view other users faves
+#   def choice_of_user(user)
+#     @user = user.users
+#     @current_user = user.current_user
+#     @current_user_favourites = user.current_user_favourites
+#     if @user.length == 1
+#         user_favourites_options(favourites_options_menu)
+#       else
+#         user_favourites_selection(user_favourites(user))
+#       end
+#   end
+
+# KEEP : Menu option when able to implement other users viewing options
+#   def user_favourites(user)
+#     prompt = TTY::Prompt.new
+#     #@user = user.users
+#     user_options = { "#{user.current_user.capitalize}'s Favourites": 1, "Other User Favourites": 2, "Return to Main Menu": 3 }
+#     prompt.select('Make a Selection:', user_options)
+#   end
+
+#   def user_favourites_selection(options)
+#     case options
+#     when 1
+#       user_favourites_options(favourites_options_menu)
+#     when 2
+#     when 3
+#     end
+#   end
