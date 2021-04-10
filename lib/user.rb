@@ -1,4 +1,3 @@
-require_relative 'app'
 require_relative 'favourites'
 require 'json'
 require 'tty-prompt'
@@ -19,9 +18,14 @@ class User
     @add_favourite = {}
     @current_user_favourites = []
     @unfavourite = []
+    @font_block = TTY::Font.new(:block)
   end
 
   def user_run
+    system 'clear'
+    @current_user = ''
+    @current_user_favourites = []
+    title_name(app_name)
     puts
     welcome
     user_type_menu
@@ -30,13 +34,24 @@ class User
     File.write(@file_path, @users.to_json)
   end
 
+  def title_name(name)
+    title = name.split(' ')
+    title.each do |word|
+      print @font_block.write(word)
+    end
+    puts
+  end
+  
+  def app_name
+    'Cocktail Cache'
+  end
+
   def welcome
     puts 'Welcome!'
     puts
   end
 
   def user_type_menu
-    # p @users.empty?
     if @users.empty?
       create_new_user
     else
@@ -62,14 +77,10 @@ class User
   def create_new_user
     puts display_input_user_name
     @current_user = user_name
-    #@current_user_favourites = @users[current_user]['favourites']
     add_user(@current_user)
-    # user_index = new_user_name_index
-    # puts user_index
   end
 
   def add_favourite(_user, cocktail_index)
-    # @current_user_favourites = @users[current_user]['favourites']
     @add_favourite =  @current_user_favourites << {
       'cocktail_name'=> PrintCocktail.selected_cocktail_name(cocktail_index), 'favourite'=> true
     }
@@ -81,16 +92,8 @@ class User
     File.write(@file_path, @users.to_json)
   end
 
-#   def add_favourite(_user, cocktail_index)
-#     @add_favourite = @users[current_user]['favourites'] << PrintCocktail.selected_cocktail_name(cocktail_index)
-#     File.write(@file_path, @users.to_json)
-#   end
-
   def existing_user_options
     prompt = TTY::Prompt.new
-    # user_options = @users.map do |user, index|
-    #     { name: user[:user], value: index }
-    # end
     @current_user = prompt.select('Select from Existing Users:', @users.keys, filter: true)
     @current_user_favourites = @users[current_user]['favourites']
     @current_user
@@ -130,9 +133,5 @@ class User
   def load_user_data(file_path)
     json_user_data = JSON.parse(File.read(file_path))
     @users = json_user_data
-    # @users = json_user_data.map do |user|
-    #     user.transform_keys(&:to_sym)
-    # end
-    # p @users
   end
 end

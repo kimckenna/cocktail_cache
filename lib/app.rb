@@ -28,14 +28,11 @@ class App
 
   def primary_app_run
     system 'clear'
-    title_name(app_name)
-    puts
     @user.user_run
     loop do
-      # system "clear" add back in once able to add secondary menu to search and favourites
+      system "clear"
       title_name(app_name)
       favourites_exist_check
-      # main_menu_selection(main_menu_options)
     end
   end
 
@@ -122,6 +119,7 @@ class App
       end
       @run_sub_menu = true
     when 4
+      @user.file_write
       @user.user_run
     when 5
       system 'clear'
