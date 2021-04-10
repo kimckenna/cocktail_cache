@@ -22,9 +22,15 @@ module PrintCocktail
   # end
 
   def cocktail_names
+    cocktail_names = []
     @cocktails.each do |cocktail|
-      cocktail['name']
+      cocktail.map do |key, value|
+        if key == 'name'
+          cocktail_names << value
+        end
+      end
     end
+    cocktail_names
   end
 
   def print_cocktail_elements
@@ -36,6 +42,7 @@ module PrintCocktail
       elsif key == 'ingredients'
         puts "\n\nIngredients:"
         cocktail_ingredients
+        #had (cocktail_index)??? - ignore
       elsif key == 'preparation'
         puts "\n\n#{key.capitalize}:"
         preparation_split(value)
@@ -68,7 +75,7 @@ module PrintCocktail
   end
 
   def title(value)
-    font_block =TTY::Font.new(:block)
+    font_block = TTY::Font.new(:block)
     title = value.split(' ')
     title.each do |word|
       # print font_dotmatrix.asciify(word)
@@ -124,4 +131,5 @@ end
 include PrintCocktail
 PrintCocktail.load_cocktail_data('data/cocktails.json')
 # PrintCocktail.cocktail_elements(cocktail_index)
-# PrintCocktail.total_cocktails
+#p PrintCocktail.selected_cocktail_name(1)
+p PrintCocktail.cocktail_names

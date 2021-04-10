@@ -49,6 +49,7 @@ class List
       cocktails_including_selected_alcohol(search_alcohol)
       PrintCocktail.selected_cocktail_index(search_cocktails(@cocktails_select_alcohol))
       PrintCocktail.print_cocktail_elements
+      @cocktails_select_alcohol = []
     when 2
       system 'clear'
       title_name(search_all_title)
@@ -82,10 +83,11 @@ class List
   # display all cocktail names including alcohol selection as list for user to choose from
   def cocktails_including_selected_alcohol(search)
     @cocktails.each do |cocktail|
-      cocktail[:ingredients].each do |ingredient|
+      cocktail['ingredients'].each do |ingredient|
         if ingredient.value?(@selected_alcohol)
           # p true
-          @cocktails_select_alcohol << cocktail[:name]
+          @cocktails_select_alcohol << cocktail['name']
+          #p @cocktails_select_alcohol
         end
       end
     end
@@ -95,7 +97,7 @@ class List
   def full_cocktail_list_ingredients
     all_ingredients = []
     PrintCocktail.cocktails.each do |cocktail|
-      cocktail[:ingredients].each do |ingredient|
+      cocktail['ingredients'].each do |ingredient|
         ingredient.map do |key, value|
           next unless key == 'ingredient'
 
@@ -139,7 +141,7 @@ class List
     until i >= categories.length - 1
       puts "\n#{categories[i]}\n\n"
       @cocktails.each do |cocktail|
-        puts "   #{cocktail[:name]}" if cocktail[:category] == categories[i]
+        puts "   #{cocktail['name']}" if cocktail['category'] == categories[i]
       end
       i += 1
     end
@@ -147,7 +149,7 @@ class List
 
   def cocktail_category
     @cocktails.map do |cocktail|
-      cocktail[:category]
+      cocktail['category']
       # if cocktail[:category] == nil
       #     @cocktails{} << "category" => "Something Stronger"
       # end
