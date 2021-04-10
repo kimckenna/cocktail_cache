@@ -8,13 +8,14 @@ require 'colorize'
 
 class User
   attr_accessor :users, :added_favourite
-  attr_reader :current_user
+  attr_reader :current_user, :current_user_favourites
 
   def initialize(file_path)
     @file_path = file_path
     load_user_data(file_path)
     @current_user = ''
     @add_favourite = {}
+    @current_user_favourites = []
   end
 
   def user_run
@@ -58,17 +59,25 @@ class User
   def create_new_user
     puts display_input_user_name
     @current_user = user_name
+    @current_user_favourites = @users[current_user]['favourites']
     add_user(@current_user)
     # user_index = new_user_name_index
     # puts user_index
   end
 
   def add_favourite(_user, cocktail_index)
-    @add_favourite = @users[current_user]['favourites'] << {
+    # @current_user_favourites = @users[current_user]['favourites']
+    @add_favourite =  @current_user_favourites << {
       'cocktail_name': PrintCocktail.selected_cocktail_name(cocktail_index), 'favourite': true
     }
     File.write(@file_path, @users.to_json)
+    p @current_user_favourites
   end
+
+#   def add_favourite(_user, cocktail_index)
+#     @add_favourite = @users[current_user]['favourites'] << PrintCocktail.selected_cocktail_name(cocktail_index)
+#     File.write(@file_path, @users.to_json)
+#   end
 
   def existing_user_options
     prompt = TTY::Prompt.new
@@ -76,6 +85,7 @@ class User
     #     { name: user[:user], value: index }
     # end
     @current_user = prompt.select('Select from Existing Users:', @users.keys, filter: true)
+    @current_user_favourites = @users[current_user]['favourites']
     @current_user
   end
 

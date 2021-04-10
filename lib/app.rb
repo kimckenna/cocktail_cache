@@ -34,7 +34,8 @@ class App
     loop do
       # system "clear" add back in once able to add secondary menu to search and favourites
       title_name(app_name)
-      main_menu_selection(main_menu_options)
+      favourites_exist_check
+      # main_menu_selection(main_menu_options)
     end
   end
 
@@ -74,9 +75,31 @@ class App
 
   def main_menu_options
     prompt = TTY::Prompt.new
-    main_menu_options = { "Random Cocktail": 1, "Favourites": 2, "Search Cocktails": 3, "Return to User Menu": 4,
-                          "Exit": 5 }
+    main_menu_options = { "Random Cocktail": 1, "Favourites": 2, "Search Cocktails": 3, "Return to User Menu": 4, "Exit": 5 }
     prompt.select('Make a Selection:', main_menu_options)
+  end
+
+  def main_menu_disabled
+    prompt = TTY::Prompt.new
+    main_menu_options = [
+      {name: "Random Cocktail", value: 1}, 
+      {name: "Favourites", value: 2, disabled: "   (You don't currently have any favourites)"}, 
+      {name: "Search Cocktails", value: 3}, 
+      {name: "Return to User Menu", value: 4}, 
+      {name: "Exit", value: 5}
+    ]
+    prompt.select('Make a Selection:', main_menu_options)
+  end
+
+
+  def favourites_exist_check
+    p @user.current_user
+    p @user.current_user_favourites
+    if @user.current_user_favourites.empty?
+      main_menu_selection(main_menu_disabled)
+    else 
+      main_menu_selection(main_menu_options)
+    end
   end
 
   def main_menu_selection(menu)
@@ -90,12 +113,12 @@ class App
       end
     when 2
       @favourite.favourite_run(@user)
-      while @run_sub_menu
-      end
+      # while @run_sub_menu
+      # end
     when 3
       @list.list_run
-      while @run_sub_menu
-      end
+      # while @run_sub_menu
+      # end
     when 4
       @user.user_run
     when 5
@@ -103,6 +126,31 @@ class App
       exit
     end
   end
+
+  # def main_menu_selection(menu)
+  #   case menu
+  #   when 1
+  #     @random.random_run
+  #     while @run_sub_menu
+  #       random_cocktail_menu_selection(random_cocktail_view_menu)
+  #       # p @user.users[@user.current_user]['favourites']
+  #       # p @user.users
+  #     end
+  #   when 2
+  #     @favourite.favourite_run(@user)
+  #     # while @run_sub_menu
+  #     # end
+  #   when 3
+  #     @list.list_run
+  #     # while @run_sub_menu
+  #     # end
+  #   when 4
+  #     @user.user_run
+  #   when 5
+  #     system 'clear'
+  #     exit
+  #   end
+  # end
 
   def load_user_data(file_path)
     json_user_data = JSON.parse(File.read(file_path))
@@ -138,6 +186,13 @@ class App
     end
   end
 
+  # def random_cocktail_view_menu
+  #   prompt = TTY::Prompt.new
+  #   cocktail_menu_options = { "Run Random Cocktail from ": 1, "Exit to Main Menu": 2, "Return to Favourites Menu": 3 }
+  #   prompt.select('Make a Selection:', cocktail_menu_options)
+  # end
+
   # def favourites_cocktail_menu_selection(cocktail_view_menu)
+
   # end
 end
