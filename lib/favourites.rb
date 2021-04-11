@@ -39,14 +39,14 @@ class Favourite
 
   def remove_from_favourites
     @unfavourite.each do |cocktail|
-        @current_user_favourites.each do |hash|
-            hash.each_value do |value|
-                if value == cocktail
-                    @current_user_favourites.delete(hash)
-                    #@current_user_favourites
-                end
-            end
+      @current_user_favourites.each do |hash|
+        hash.each_value do |value|
+          if value == cocktail
+            @current_user_favourites.delete(hash)
+            # @current_user_favourites
+          end
         end
+      end
     end
   end
 
@@ -55,25 +55,25 @@ class Favourite
     @current_user = user.current_user
     @current_user_favourites = user.current_user_favourites
     prompt = TTY::Prompt.new
-    favourite_options = { "Random Favourite": 1, "View All Favourites": 2, "Favourites Management": 3}
+    favourite_options = { "Random Favourite": 1, "View All Favourites": 2, "Favourites Management": 3 }
     prompt.select('Make a Selection:', favourite_options)
   end
 
   def user_favourites_options(menu)
     case menu
     when 1
-        favourites_random_name(@random.random_index_full_list(favourites_length))
-        #@display_favourites
-        PrintCocktail.selected_cocktail_index(user_cocktail_name(@random.selected_index[-1]))
-        PrintCocktail.print_cocktail_elements
+      favourites_random_name(@random.random_index_full_list(favourites_length))
+      # @display_favourites
+      PrintCocktail.selected_cocktail_index(user_cocktail_name(@random.selected_index[-1]))
+      PrintCocktail.print_cocktail_elements
     when 2
-        PrintCocktail.selected_cocktail_index(@list.search_cocktails(display_favourites))
-        PrintCocktail.print_cocktail_elements
+      PrintCocktail.selected_cocktail_index(@list.search_cocktails(display_favourites))
+      PrintCocktail.print_cocktail_elements
     when 3
-        favourites_management
-        display_favourites
-        remove_from_favourites
-        @current_user_favourites
+      favourites_management
+      display_favourites
+      remove_from_favourites
+      @current_user_favourites
     end
   end
 

@@ -9,9 +9,9 @@ require_relative 'welcome'
 require 'json'
 require 'tty-prompt'
 require 'colorize'
-require 'artii'
+# require 'artii'
 
-# Central class of app - runs other class menus and holds sub menu for favourites, list and random. Passes info from user to other menus 
+# Central class of app - runs other class menus and holds sub menu for favourites, list and random. Passes info from user to other menus
 
 class App
   include Welcome
@@ -23,7 +23,6 @@ class App
     @random = Random.new('data/cocktails.json')
     @list = List.new('data/cocktails.json')
     @favourite = Favourite.new('data/users.json')
-    #@welcome = Welcome.new()
     @run_sub_menu = true
     @font_block = TTY::Font.new(:block)
     @already_favourite = false
@@ -34,10 +33,8 @@ class App
     system 'clear'
     Welcome.welcome_run
     enter_site(slide_enter)
-    # system 'clear'
-    # @user.user_run
     loop do
-      system "clear"
+      system 'clear'
       title_name(app_name)
       favourites_exist_check
     end
@@ -56,51 +53,51 @@ class App
   end
 
   def fav_title
-    "Favourites"
+    'Favourites'
   end
 
   def search_title
-    "Cocktail Search"
+    'Cocktail Search'
   end
 
   def slide_enter
-		slider_format = -> (slider, value) { "|#{slider}| #{value.zero? ? "" : "Enter"}" % value }
-		@prompt.slider("Slide on in!", max: 1, step: 1, default: 0, format: slider_format)
-	end
+    slider_format = ->(slider, value) { "|#{slider}| #{value.zero? ? '' : 'Enter'}" % value }
+    @prompt.slider('Slide on in!', max: 1, step: 1, default: 0, format: slider_format)
+  end
 
-	def enter_site(selection)
+  def enter_site(selection)
     case selection
     when 1
       system 'clear'
-    	@user.user_run
+      @user.user_run
     end
   end
 
   def main_menu_options
     prompt = TTY::Prompt.new
-    main_menu_options = { "Random Cocktail": 1, "Favourites": 2, "Search Cocktails": 3, "Return to User Menu": 4, "Exit": 5 }
+    main_menu_options = { "Random Cocktail": 1, "Favourites": 2, "Search Cocktails": 3, "Return to User Menu": 4,
+                          "Exit": 5 }
     prompt.select('Make a Selection:', main_menu_options)
   end
 
   def main_menu_disabled
     prompt = TTY::Prompt.new
     main_menu_options = [
-      {name: "Random Cocktail", value: 1}, 
-      {name: "Favourites", value: 2, disabled: "   (You don't currently have any favourites)"}, 
-      {name: "Search Cocktails", value: 3}, 
-      {name: "Return to User Menu", value: 4}, 
-      {name: "Exit", value: 5}
+      { name: 'Random Cocktail', value: 1 },
+      { name: 'Favourites', value: 2, disabled: "   (You don't currently have any favourites)" },
+      { name: 'Search Cocktails', value: 3 },
+      { name: 'Return to User Menu', value: 4 },
+      { name: 'Exit', value: 5 }
     ]
     prompt.select('Make a Selection:', main_menu_options)
   end
-
 
   def favourites_exist_check
     p @user.current_user
     p @user.current_user_favourites
     if @user.current_user_favourites.empty?
       main_menu_selection(main_menu_disabled)
-    else 
+    else
       main_menu_selection(main_menu_options)
     end
   end
@@ -120,9 +117,7 @@ class App
       puts
       @favourite.favourite_run(@user)
       @user.file_write
-      while @run_sub_menu
-        fav_sub_options(fav_sub_menu)
-      end
+      fav_sub_options(fav_sub_menu) while @run_sub_menu
       @run_sub_menu = true
     when 3
       system 'clear'
@@ -150,9 +145,7 @@ class App
 
   def check_cocktail_already_favourite(cocktail)
     @user.current_user_favourites.each do |hash|
-      if hash.value?(cocktail) == true
-        @already_favourite = true
-      end
+      @already_favourite = true if hash.value?(cocktail) == true
     end
   end
 
@@ -183,9 +176,9 @@ class App
   def sub_menu_disabled(input)
     prompt = TTY::Prompt.new
     options = [
-      {name: "Add to Favourites", value: 1, disabled: "   (This cocktail is already favourited)"}, 
-      {name: "#{input}", value: 2}, 
-      {name: "Exit to Main Menu", value: 3}, 
+      { name: 'Add to Favourites', value: 1, disabled: '   (This cocktail is already favourited)' },
+      { name: input.to_s, value: 2 },
+      { name: 'Exit to Main Menu', value: 3 }
     ]
     prompt.select('Make a Selection:', options)
   end

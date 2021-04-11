@@ -1,8 +1,6 @@
-require 'json'
-require 'tty-prompt'
-require 'colorize'
 require_relative 'cocktail_card_module'
 
+# Class finds random cocktail
 class Random
   include PrintCocktail
   attr_accessor :cocktails, :selected_index

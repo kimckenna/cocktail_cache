@@ -1,3 +1,3 @@
 # !/bin/bash
 
-ruby cocktail_cache.rb $@
+ruby cocktail_cache.rb "$@"

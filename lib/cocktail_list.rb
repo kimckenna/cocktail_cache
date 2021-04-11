@@ -1,7 +1,4 @@
 require_relative 'cocktail_card_module'
-require 'json'
-require 'tty-prompt'
-require 'colorize'
 
 # Provides all the cocktail search functions pulling the end cocktail format from cocktail_card_module
 class List
@@ -15,6 +12,7 @@ class List
     @selected_alcohol = ''
     @cocktails_select_alcohol = []
     @selected_index_list = []
+    @font_block = TTY::Font.new(:block)
   end
 
   def list_run
@@ -24,7 +22,7 @@ class List
   def title_name(name)
     title = name.split(' ')
     title.each do |word|
-      print font_block.write(word)
+      print @font_block.write(word)
     end
     puts
   end
@@ -75,15 +73,12 @@ class List
   def search_alcohol
     prompt = TTY::Prompt.new
     @selected_alcohol = prompt.select('Select an Alcohol: ', alcohol_ingredients, filter: true)
-    # @alcohol_selection
   end
 
-  def cocktails_including_selected_alcohol(search)
+  def cocktails_including_selected_alcohol(_search)
     @cocktails.each do |cocktail|
       cocktail['ingredients'].each do |ingredient|
-        if ingredient.value?(@selected_alcohol)
-          @cocktails_select_alcohol << cocktail['name']
-        end
+        @cocktails_select_alcohol << cocktail['name'] if ingredient.value?(@selected_alcohol)
       end
     end
     @cocktails_select_alcohol
@@ -95,7 +90,7 @@ class List
       cocktail['ingredients'].each do |ingredient|
         ingredient.map do |key, value|
           next unless key == 'ingredient'
-
+          
           all_ingredients << value unless all_ingredients.include?(value) == true
         end
       end
@@ -147,4 +142,3 @@ end
 #       cocktail['category']
 #     end
 #   end
-

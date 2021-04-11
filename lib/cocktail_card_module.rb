@@ -103,7 +103,6 @@ module PrintCocktail
   end
 end
 
-# Have only been running file on own have not linked to rest of app
-# cocktails = PrintCocktail.new('data/cocktails.json')
+# required to initialize 
 include PrintCocktail
 PrintCocktail.load_cocktail_data('data/cocktails.json')
