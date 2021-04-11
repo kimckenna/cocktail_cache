@@ -116,7 +116,13 @@ class App
       puts
       @favourite.favourite_run(@user)
       @user.file_write
-      fav_sub_options(fav_sub_menu) while @run_sub_menu
+      while @run_sub_menu
+        if @user.current_user_favourites.empty?
+          @run_sub_menu = false
+        else
+          fav_sub_options(fav_sub_menu)
+        end
+      end
       @run_sub_menu = true
     when 3
       system 'clear'
@@ -168,11 +174,13 @@ class App
   end
 
   def sub_menu(input)
+    puts
     options = { "Add to Favourites": 1, "#{input}": 2, "Exit to Main Menu": 3 }
     @prompt.select('Make a Selection:', options)
   end
 
   def sub_menu_disabled(input)
+    puts
     options = [
       { name: 'Add to Favourites', value: 1, disabled: '   (This cocktail is already favourited)' },
       { name: input.to_s, value: 2 },
@@ -213,6 +221,7 @@ class App
   end
 
   def fav_sub_menu
+    puts
     options = { "Return to Favourites Menu": 1, "Exit to Main Menu": 2 }
     @prompt.select('Make a Selection:', options)
   end

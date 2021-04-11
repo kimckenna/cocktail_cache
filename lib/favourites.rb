@@ -62,7 +62,6 @@ class Favourite
     case menu
     when 1
       favourites_random_name(@random.random_index_full_list(favourites_length))
-      # @display_favourites
       PrintCocktail.selected_cocktail_index(user_cocktail_name(@random.selected_index[-1]))
       PrintCocktail.print_cocktail_elements
     when 2
