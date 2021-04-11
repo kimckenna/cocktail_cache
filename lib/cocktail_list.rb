@@ -13,6 +13,7 @@ class List
     @cocktails_select_alcohol = []
     @selected_index_list = []
     @font_block = TTY::Font.new(:block)
+    @prompt = TTY::Prompt.new(help_color: :cyan)
   end
 
   def list_run
@@ -28,9 +29,8 @@ class List
   end
 
   def search_type
-    prompt = TTY::Prompt.new
     user_type = { "Search Cocktails By Alcohol": 1, "Search all Cocktails": 2 }
-    prompt.select('Make a Selection:', user_type)
+    @prompt.select('Make a Selection:', user_type)
   end
 
   def search_type_selection(search)
@@ -61,8 +61,7 @@ class List
   end
 
   def search_cocktails(input)
-    prompt = TTY::Prompt.new
-    @selected_cocktail = prompt.select('Choose a Cocktail: ', input, filter: true)
+    @selected_cocktail = @prompt.select('Choose a Cocktail: ', input, filter: true)
     @selected_cocktail
   end
 
@@ -71,8 +70,7 @@ class List
   end
 
   def search_alcohol
-    prompt = TTY::Prompt.new
-    @selected_alcohol = prompt.select('Select an Alcohol: ', alcohol_ingredients, filter: true)
+    @selected_alcohol = @prompt.select('Select an Alcohol: ', alcohol_ingredients, filter: true)
   end
 
   def cocktails_including_selected_alcohol(_search)
@@ -90,7 +88,7 @@ class List
       cocktail['ingredients'].each do |ingredient|
         ingredient.map do |key, value|
           next unless key == 'ingredient'
-          
+
           all_ingredients << value unless all_ingredients.include?(value) == true
         end
       end

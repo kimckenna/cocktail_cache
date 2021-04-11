@@ -26,7 +26,7 @@ class App
     @run_sub_menu = true
     @font_block = TTY::Font.new(:block)
     @already_favourite = false
-    @prompt = TTY::Prompt.new
+    @prompt = TTY::Prompt.new(help_color: :cyan)
   end
 
   def primary_app_run
@@ -74,14 +74,12 @@ class App
   end
 
   def main_menu_options
-    prompt = TTY::Prompt.new
     main_menu_options = { "Random Cocktail": 1, "Favourites": 2, "Search Cocktails": 3, "Return to User Menu": 4,
                           "Exit": 5 }
-    prompt.select('Make a Selection:', main_menu_options)
+    @prompt.select('Make a Selection:', main_menu_options)
   end
 
   def main_menu_disabled
-    prompt = TTY::Prompt.new
     main_menu_options = [
       { name: 'Random Cocktail', value: 1 },
       { name: 'Favourites', value: 2, disabled: "   (You don't currently have any favourites)" },
@@ -89,12 +87,12 @@ class App
       { name: 'Return to User Menu', value: 4 },
       { name: 'Exit', value: 5 }
     ]
-    prompt.select('Make a Selection:', main_menu_options)
+    @prompt.select('Make a Selection:', main_menu_options)
   end
 
   def favourites_exist_check
-    p @user.current_user
-    p @user.current_user_favourites
+    @user.current_user
+    @user.current_user_favourites
     if @user.current_user_favourites.empty?
       main_menu_selection(main_menu_disabled)
     else
@@ -108,6 +106,7 @@ class App
       @random.random_run
       while @run_sub_menu
         check_cocktail_already_favourite(@user.check_cocktail_name(@random.selected_index[-1]))
+        
         check_cocktail_menu_random('Run Again')
       end
       @run_sub_menu = true
@@ -144,6 +143,7 @@ class App
   end
 
   def check_cocktail_already_favourite(cocktail)
+    puts
     @user.current_user_favourites.each do |hash|
       @already_favourite = true if hash.value?(cocktail) == true
     end
@@ -168,19 +168,17 @@ class App
   end
 
   def sub_menu(input)
-    prompt = TTY::Prompt.new
     options = { "Add to Favourites": 1, "#{input}": 2, "Exit to Main Menu": 3 }
-    prompt.select('Make a Selection:', options)
+    @prompt.select('Make a Selection:', options)
   end
 
   def sub_menu_disabled(input)
-    prompt = TTY::Prompt.new
     options = [
       { name: 'Add to Favourites', value: 1, disabled: '   (This cocktail is already favourited)' },
       { name: input.to_s, value: 2 },
       { name: 'Exit to Main Menu', value: 3 }
     ]
-    prompt.select('Make a Selection:', options)
+    @prompt.select('Make a Selection:', options)
   end
 
   def user_favourite_array
@@ -215,9 +213,8 @@ class App
   end
 
   def fav_sub_menu
-    prompt = TTY::Prompt.new
     options = { "Return to Favourites Menu": 1, "Exit to Main Menu": 2 }
-    prompt.select('Make a Selection:', options)
+    @prompt.select('Make a Selection:', options)
   end
 
   def fav_sub_options(selection)

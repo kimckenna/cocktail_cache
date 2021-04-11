@@ -7,7 +7,7 @@ require 'colorize'
 # end
 # Responsible for management of users.json - users and favourites
 class User
-  attr_accessor :users, :add_favourite
+  attr_accessor :users, :add_favourite_cocktail
   attr_reader :current_user, :current_user_favourites, :unfavourite
 
   def initialize(file_path)
@@ -15,10 +15,11 @@ class User
     load_user_data(file_path)
     @favourite = Favourite.new('data/cocktails.json')
     @current_user = ''
-    @add_favourite = {}
+    @add_favourite_cocktail = {}
     @current_user_favourites = []
     @unfavourite = []
     @font_block = TTY::Font.new(:block)
+    @prompt = TTY::Prompt.new(help_color: :cyan)
   end
 
   def user_run
@@ -60,9 +61,8 @@ class User
   end
 
   def user_type
-    prompt = TTY::Prompt.new
     user_type = { "New User": 1, "Existing User": 2 }
-    prompt.select('Make a Selection:', user_type)
+    @prompt.select('Make a Selection:', user_type)
   end
 
   def user_type_selection(user_type)
@@ -76,12 +76,42 @@ class User
 
   def create_new_user
     puts display_input_user_name
-    @current_user = user_name
-    add_user(@current_user)
+    username_exists(username, rand_number)
+  end
+
+  def display_input_user_name
+    puts 'Please enter your username:'
+  end
+
+  def username
+    gets.strip.downcase
+  end
+
+  def add_user(user)
+    @users[user] = { 'favourites' => [] }
+  end
+
+  def username_exists(input, num)
+    if @users.include?(input)
+        puts "That username is taken, possible alternatives:"
+        puts "\n   #{input}#{num},   #{input}_#{rand_letter}\n\n"
+        create_new_user
+    else
+        @current_user = (input)
+        add_user(@current_user)
+    end
+  end 
+
+  def rand_number
+    rand(10..1000) 
+  end
+
+  def rand_letter
+    ('a'..'z').to_a.sample
   end
 
   def add_favourite(_user, cocktail_index)
-    @add_favourite =  @current_user_favourites << {
+    @add_favourite_cocktail =  @current_user_favourites << {
       'cocktail_name'=> PrintCocktail.selected_cocktail_name(cocktail_index), 'favourite'=> true
     }
     File.write(@file_path, @users.to_json)
@@ -97,26 +127,13 @@ class User
   end
 
   def existing_user_options
-    prompt = TTY::Prompt.new
-    @current_user = prompt.select('Select from Existing Users:', @users.keys, filter: true)
+    @current_user = @prompt.select('Select from Existing Users:', @users.keys, filter: true)
     @current_user_favourites = @users[current_user]['favourites']
     @current_user
   end
 
   def existing_user_index(existing_user_options)
     @users[existing_user_options]
-  end
-
-  def display_input_user_name
-    puts 'Enter your name'
-  end
-
-  def user_name
-    gets.strip.downcase
-  end
-
-  def add_user(user_name)
-    @users[user_name] = { 'favourites' => [] }
   end
 
   def new_user_index
@@ -139,3 +156,7 @@ class User
     @users = json_user_data
   end
 end
+
+# user = User.new('data/users.json')
+
+# user.user_run
