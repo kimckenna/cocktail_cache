@@ -21,7 +21,7 @@ Our selection options may not be vast but our Cocktail Inventory sure is!
 
 ```./install.sh```<br>
 
-This will install: 
+This will install: <br>
 ```gem install bundler```<br>
 ```bundle install```<br>
 
@@ -56,15 +56,29 @@ For more information on downloading Ruby for your OS visit
 
 ### Available Arguments:
 
-Run Cocktail Cache at User Selection: ***'user'*** or ***'u'***   
-Run Cocktail Cache at Existing User Selection: ***'user'*** or ***'u'***
-View Random Cocktail: ***'random'*** or ***'r'***
-Search Cocktails: ***'search'*** or ***'s'***
-Search a Users Favourites: ***'fav'*** or ***'f'*** 
+Run Cocktail Cache at User Selection:<br> 
+```'user'``` or ```'u'```<br>   
+
+Run Cocktail Cache at Existing User Selection:<br> 
+```'user'``` or ```'u'```<br>
+
+View Random Cocktail:<br> 
+```'random'``` or ```'r'```<br>
+
+Search Cocktails:<br>
+```'search'``` or ```'s'```<br>
+Search a Users Favourites:
+```'fav'``` or ```'f'```<br> 
+
 - *note you will be taken to select a user first*
 - *if user has no favourites you will need to reuse the 'fav' or 'f' argument*
 
 Full functionality of Cocktail Cache requires username selection.
-As a result, unless using ***'user'*** or ***'existing user'*** the app will terminate once a cocktail is populated.
+As a result, unless using ```'user'``` or ```'existing user'``` the app will terminate once a cocktail is populated.
+
+
+---
+
+### ENJOY!
 
 ---
