@@ -92,26 +92,25 @@ class App
   def argv_help
     title_name(help)
     puts "Valid Arguments\n\n"
-    puts "   Run Cocktail Cache at User Selection: 'user' or 'u'\n\n   Run Cocktail Cache at Existing User Selection: 'user' or 'u'\n\n   View Random Cocktail: 'random' or 'r'\n\n   Search Cocktails: 'search' or 's'\n\n   Search a Users Favourites: 'fav' or 'f'\n\n" 
+    puts "   Run Cocktail Cache at User Selection: 'user' or 'u'\n\n   Run Cocktail Cache at Existing User Selection: 'existing user' or 'eu'\n\n   View Random Cocktail: 'random' or 'r'\n\n   Search Cocktails: 'search' or 's'\n\n   Search a Users Favourites: 'fav' or 'f'\n\n" 
     puts "      * note you will be taken to select a user first.\n     ** if user has no favourites you will need to reuse the 'fav' or 'f' argument.\n\n"
     puts "   Full functionality of Cocktail Cache requires username selection.\n"
-    puts "   As a result, unless using 'user') the app will terminate once a cocktail is populated.\n\n"
+    puts "   As a result, unless using 'user'('u') or 'existing user'('eu') the app will terminate once a cocktail is populated.\n\n"
     puts "Set Up:\n\n"
     puts "   To run: ./cocktail_cache.sh\n\n   To install: ./install.sh\n\n"
     puts "      *  Cocktail Cache was built using Ruby version 2.7.2 and will require Ruby installation to run.\n\n"
     puts "Menu Navigation:\n\n"
-    puts "   All menus include navigation instructions before any keys are pressed.\n\n   All allow you to scroll with keyboard arrows and require you to press enter to confirm your selection.\n\n"
-    puts "   If you are using a search funtion e.g. Select from Existing Users or Search all Cocktails:\n   Filter is enabled. Start typing, press enter to confirm selection or arrow keys to navigate filtered list.\n\n"
+    puts "   All menus include navigation instructions before any keys are pressed.\n\n   All allow you to scroll with keyboard arrows ↑/↓/←/→ and require you to press enter to confirm your selection.\n\n"
+    puts "   If you are using a search funtion e.g. Select from Existing Users or Search all Cocktails:\n   Filter is enabled. Start typing, press enter to confirm your selection or arrow keys ↑/↓ to navigate filtered list.\n\n"
     puts "   Menus with multi selection can select all using Ctrl+Shift+A\n\n   If menu selection is disabled, relevant message will advise why.\n\n"
     puts "Best of Luck and Enjoy!\n\n"
   end 
-
   def primary_app_run
     system 'clear'
     Welcome.welcome_run
     enter_site(slide_enter)
     loop do
-      system 'clear'
+      #system 'clear'
       title_name(app_name)
       favourites_exist_check
     end
@@ -149,7 +148,7 @@ class App
   def enter_site(selection)
     case selection
     when 1
-      system 'clear'
+      #system 'clear'
       @user.user_run
     end
   end
