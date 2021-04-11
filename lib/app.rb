@@ -4,6 +4,7 @@ require_relative 'user'
 require_relative 'cocktail_random'
 require_relative 'cocktail_list'
 require_relative 'favourites'
+require_relative 'welcome'
 # gems
 require 'json'
 require 'tty-prompt'
@@ -21,14 +22,19 @@ class App
     @random = Random.new('data/cocktails.json')
     @list = List.new('data/cocktails.json')
     @favourite = Favourite.new('data/users.json')
+    @welcome = Welcome.new()
     @run_sub_menu = true
     @font_block = TTY::Font.new(:block)
     @already_favourite = false
+    @prompt = TTY::Prompt.new
   end
 
   def primary_app_run
     system 'clear'
-    @user.user_run
+    @welcome.welcome_run
+    enter_site(slide_enter)
+    # system 'clear'
+    # @user.user_run
     loop do
       system "clear"
       title_name(app_name)
@@ -56,6 +62,18 @@ class App
     "Cocktail Search"
   end
 
+  def slide_enter
+		slider_format = -> (slider, value) { "|#{slider}| #{value.zero? ? "" : "Enter"}" % value }
+		@prompt.slider("Slide on in!", max: 1, step: 1, default: 0, format: slider_format)
+	end
+
+	def enter_site(selection)
+    case selection
+    when 1
+      system 'clear'
+    	@user.user_run
+    end
+  end
 
   def main_menu_options
     prompt = TTY::Prompt.new

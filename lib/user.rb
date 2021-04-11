@@ -27,8 +27,7 @@ class User
     @current_user_favourites = []
     title_name(app_name)
     puts
-    welcome
-    about_app
+    #welcome
     user_type_menu
     puts
 
@@ -49,19 +48,6 @@ class User
 
   def welcome
     puts 'Welcome!'
-    puts
-  end
-
-  def about_app
-    puts "About Cocktail Cache:\n"
-    puts "Cocktail Cache provides you with a section of official IBA cocktails graciously collated by Teijo Lane and collaborators.\n\n"
-    puts "Within this app you\'re able to:\n"
-    puts "  1. Create and manage your own list of favourite cocktails\n"
-    puts "  2. Select a cocktail at random\n"
-    puts "  3. Search the extensive list of cocktails by name or ingredient.\n\n"
-    puts "When navigating Cokatil Cache, each menu will explain how to access each option.\n\n"
-    puts "Thanks for Downloading!\n\n"
-    puts "Kim \n\nCocktail of Choice: Whiskey Sour"
     puts
   end
 
