@@ -1,22 +1,15 @@
-
-require 'tty-prompt'
 require 'colorize'
-require 'artii'
 require 'tty-font'
 
-# Class displays Welcome / Start Page
-class Welcome
-
+# Module printing Welcome / Start Page content
+module Welcome
 	attr_accessor :font_block
 
-	def initialize()
-		@font_block = TTY::Font.new(:block)
-	end
-
 	def title_name(name)
+		font_block = TTY::Font.new(:block)
     title = name.split(' ')
     title.each do |word|
-      print @font_block.write(word)
+      print font_block.write(word)
     end
     puts
   end
@@ -40,5 +33,5 @@ class Welcome
   end
 end
 
-# welcome = Welcome.new
-# welcome.welcome_run
+include Welcome
+Welcome.welcome_run

@@ -2,11 +2,6 @@ require_relative 'cocktail_card_module'
 require_relative 'cocktail_list'
 require_relative 'cocktail_random'
 
-require 'json'
-require 'tty-prompt'
-require 'colorize'
-require 'artii'
-
 # Includes menus for Favourite feature options and utilises random_cocktail & list_cocktail for their functionality
 class Favourite
   include PrintCocktail

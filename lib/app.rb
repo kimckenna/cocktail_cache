@@ -14,6 +14,7 @@ require 'artii'
 # Central class of app - runs other class menus and holds sub menu for favourites, list and random. Passes info from user to other menus 
 
 class App
+  include Welcome
   attr_accessor :users
 
   def initialize(file_path)
@@ -22,7 +23,7 @@ class App
     @random = Random.new('data/cocktails.json')
     @list = List.new('data/cocktails.json')
     @favourite = Favourite.new('data/users.json')
-    @welcome = Welcome.new()
+    #@welcome = Welcome.new()
     @run_sub_menu = true
     @font_block = TTY::Font.new(:block)
     @already_favourite = false
@@ -31,7 +32,7 @@ class App
 
   def primary_app_run
     system 'clear'
-    @welcome.welcome_run
+    Welcome.welcome_run
     enter_site(slide_enter)
     # system 'clear'
     # @user.user_run
