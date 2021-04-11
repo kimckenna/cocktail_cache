@@ -112,7 +112,7 @@ end
 #   def user_favourites(user)
 #     prompt = TTY::Prompt.new
 #     #@user = user.users
-#     user_options = { "#{user.current_user.capitalize}'s Favourites": 1, "Other User Favourites": 2, "Return to Main Menu": 3 }
+#     user_options = { "#{user.current_user.capitalize}'s Favourites": 1, "Other User Favourites": 2, "Return to Main Menu": 3}
 #     prompt.select('Make a Selection:', user_options)
 #   end
 
