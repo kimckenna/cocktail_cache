@@ -29,6 +29,81 @@ class App
     @prompt = TTY::Prompt.new(help_color: :cyan)
   end
 
+  def run
+    if ARGV.empty?
+      system 'clear'
+      primary_app_run
+    else
+      argv_run
+    end
+  end
+
+  def argv_run
+    first, *other = ARGV
+    ARGV.clear
+    case first
+    when 'user', 'u'
+      system 'clear'
+      @user.user_run
+      loop do
+        system 'clear'
+        title_name(app_name)
+        favourites_exist_check
+      end
+    when 'existing user', 'eu'
+      system 'clear'
+      title_name(app_name)
+      @user.existing_user_options
+      loop do
+        system 'clear'
+        title_name(app_name)
+        favourites_exist_check
+      end
+    when 'random', 'r'
+      system 'clear'
+      @random.random_run
+    when 'fav', 'f'
+      system 'clear'
+      title_name(app_name)
+      @user.existing_user_options
+      unless @user.current_user_favourites.empty?
+        system 'clear'
+        title_name(fav_title)
+        @favourite.favourite_run(@user)
+        @user.file_write
+      else
+        puts "User has no favourites"
+      end
+    when 'search', 's'
+      system 'clear'
+      title_name(search_title)
+      puts
+      @list.list_run
+    when 'help', 'h'
+      system 'clear'
+      argv_help
+    else
+      puts "Invalid Argument: use 'help' for valid arguments\n\n"
+    end
+  end
+
+  def argv_help
+    title_name(help)
+    puts "Valid Arguments\n\n"
+    puts "   Run Cocktail Cache at User Selection: 'user' or 'u'\n\n   Run Cocktail Cache at Existing User Selection: 'user' or 'u'\n\n   View Random Cocktail: 'random' or 'r'\n\n   Search Cocktails: 'search' or 's'\n\n   Search a Users Favourites: 'fav' or 'f'\n\n" 
+    puts "      * note you will be taken to select a user first.\n     ** if user has no favourites you will need to reuse the 'fav' or 'f' argument.\n\n"
+    puts "   Full functionality of Cocktail Cache requires username selection.\n"
+    puts "   As a result, unless using 'user') the app will terminate once a cocktail is populated.\n\n"
+    puts "Set Up:\n\n"
+    puts "   To run: ./cocktail_cache.sh\n\n   To install: ./install.sh\n\n"
+    puts "      *  Cocktail Cache was built using Ruby version 2.7.2 and will require Ruby installation to run.\n\n"
+    puts "Menu Navigation:\n\n"
+    puts "   All menus include navigation instructions before any keys are pressed.\n\n   All allow you to scroll with keyboard arrows and require you to press enter to confirm your selection.\n\n"
+    puts "   If you are using a search funtion e.g. Select from Existing Users or Search all Cocktails:\n   Filter is enabled. Start typing, press enter to confirm selection or arrow keys to navigate filtered list.\n\n"
+    puts "   Menus with multi selection can select all using Ctrl+Shift+A\n\n   If menu selection is disabled, relevant message will advise why.\n\n"
+    puts "Best of Luck and Enjoy!\n\n"
+  end 
+
   def primary_app_run
     system 'clear'
     Welcome.welcome_run
@@ -46,6 +121,10 @@ class App
       print @font_block.write(word)
     end
     puts
+  end
+
+  def help
+    'Help is Here'
   end
 
   def app_name
