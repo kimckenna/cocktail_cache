@@ -1,30 +1,33 @@
 # Cocktail Cache
 
-## About
+## About Cocktail Cache
 
 Cocktail Cache was built with simplicity in mind!
 
 After you've entered a new username or selected an existing, you're able to start exploring. Here on out all navigation is menu based and no written input is required.
+
 Find a cocktail you'd love to save for later, add it to your favourites. Feeling adventurous and want to see what lady luck can offer; generate a random cocktail. Have a particular Aunt who loves Brandy, search by ingredient! 
+
 Our selection options may not be vast but our Cocktail Inventory sure is!
 
+---
 ## Installation 
 
-1. Clone repo from:
+### Clone Repository:
 
-[GitHub - Cocktail Cache Terminal App](https://github.com/kimckenna/cocktail_cache)<br>
+[GitHub - Cocktail Cache Terminal App](https://github.com/kimckenna/cocktail_cache)<br> 
 
-2. In the Terminal run: 
+### To Install: 
 
-To install: 
-```./install.sh```
+```./install.sh```<br>
 
 This will install: 
-```gem install bundler```
-```bundle install```
+```gem install bundler```<br>
+```bundle install```<br>
 
-To run: 
-```./cocktail_cache.sh```
+### To Run: 
+
+```./cocktail_cache.sh```<br>
 
 
 ## Dependencies 
@@ -32,7 +35,7 @@ To run:
 This App was built and tested using Ruby 2.7.2
 As a result it requires Ruby to run.
 
-For more information on downloading Ruby for your OS visit: 
+For more information on downloading Ruby for your OS visit 
 [Ruby: Download](https://www.ruby-lang.org/en/downloads/)
 
 ### Gems:
@@ -45,9 +48,11 @@ For more information on downloading Ruby for your OS visit:
 - json 2.5
 - tty-font 0.5.0
 
-## Help
+---
+## Additional Help
 
-Cocktail Cache has command line arguments including help menu that can be accessed within the terminal. 
+*Cocktail Cache includes help menu that can be accessed within the terminal.*<br> 
+```./cocktail_cache.sh help```<br> 
 
 ### Available Arguments:
 
@@ -61,3 +66,5 @@ Search a Users Favourites: ***'fav'*** or ***'f'***
 
 Full functionality of Cocktail Cache requires username selection.
 As a result, unless using ***'user'*** or ***'existing user'*** the app will terminate once a cocktail is populated.
+
+---
