@@ -3,8 +3,6 @@ require 'json'
 require 'tty-prompt'
 require 'colorize'
 
-# class InvalidUserSelection < StandardError
-# end
 # Responsible for management of users.json - users and favourites
 class User
   attr_accessor :users, :add_favourite_cocktail
@@ -93,12 +91,13 @@ class User
 
   def username_exists(input, num)
     if @users.include?(input)
-        puts "That username is taken, possible alternatives:"
+        puts "That username is taken, some possible alternatives are:"
         puts "\n   #{input}#{num},   #{input}_#{rand_letter}\n\n"
         create_new_user
     else
         @current_user = (input)
         add_user(@current_user)
+        @current_user_favourites = @users[current_user]['favourites']
     end
   end 
 
@@ -115,7 +114,7 @@ class User
       'cocktail_name'=> PrintCocktail.selected_cocktail_name(cocktail_index), 'favourite'=> true
     }
     File.write(@file_path, @users.to_json)
-    p @current_user_favourites
+    @current_user_favourites
   end
 
   def check_cocktail_name(index)
@@ -154,6 +153,10 @@ class User
   def load_user_data(file_path)
     json_user_data = JSON.parse(File.read(file_path))
     @users = json_user_data
+  rescue JSON::ParserError
+    File.open(file_path, 'w+')
+    File.write(file_path, {})
+    retry
   end
 end
 

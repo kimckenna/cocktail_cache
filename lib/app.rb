@@ -45,6 +45,7 @@ class App
     when 'user', 'u'
       system 'clear'
       @user.user_run
+      @user.file_write
       loop do
         system 'clear'
         title_name(app_name)
@@ -54,6 +55,7 @@ class App
       system 'clear'
       title_name(app_name)
       @user.existing_user_options
+      @user.file_write
       loop do
         system 'clear'
         title_name(app_name)
@@ -276,6 +278,7 @@ class App
     case selection
     when 1
       @user.add_favourite(user_favourite_array, @random.selected_index[-1])
+      @user.file_write
     when 2
       system 'clear'
       @random.random_run
@@ -289,6 +292,7 @@ class App
     case selection
     when 1
       @user.add_favourite(user_favourite_array, @list.selected_index_list[-1])
+      @user.file_write
     when 2
       system 'clear'
       title_name(search_title)

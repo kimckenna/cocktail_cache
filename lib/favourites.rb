@@ -27,7 +27,7 @@ class Favourite
   end
 
   def display_favourites
-    p @current_user_favourites
+    # @current_user_favourites
     @current_user_favourites.map do |favourite|
       favourite.fetch('cocktail_name')
     end
@@ -54,7 +54,7 @@ class Favourite
     @user = user.users
     @current_user = user.current_user
     @current_user_favourites = user.current_user_favourites
-    favourite_options = { "Random Favourite": 1, "View All Favourites": 2, "Favourites Management": 3 }
+    favourite_options = { "Random Favourite": 1, "View all Favourites": 2, "Favourites Management": 3 }
     @prompt.select('Make a Selection:', favourite_options)
   end
 
