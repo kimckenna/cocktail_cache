@@ -97,6 +97,13 @@ module PrintCocktail
     @cocktails.length - 1
   end
 
+  def apologies_message
+    puts "Hello! \n\nThank you for downloading Cocktail Cache.\n"
+    puts "During installation an error may have occured that will impact the core functionality of this app.\n"
+    puts "Please try recloning from: https://github.com/kimckenna/cocktail_cache\n"
+    puts "Apologies for any inconvience."
+  end
+
   def load_cocktail_data(file_path)
     json_cocktail_data = JSON.parse(File.read(file_path))
     @cocktails = json_cocktail_data
