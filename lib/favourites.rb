@@ -13,7 +13,7 @@ class Favourite
     @random = Random.new('data/cocktails.json')
     @favourites = []
     @current_user = ''
-    @prompt = TTY::Prompt.new(help_color: :cyan, interrupt: :noop)
+    @prompt = TTY::Prompt.new(help_color: :cyan, active_color: :bright_yellow, interrupt: :noop)
     @prompt_alert = TTY::Prompt.new(help_color: :bright_red, active_color: :bright_red, interrupt: :noop)
   end
 

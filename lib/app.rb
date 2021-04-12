@@ -25,7 +25,7 @@ class App
     @run_sub_menu = true
     @font_block = TTY::Font.new(:block)
     @already_favourite = false
-    @prompt = TTY::Prompt.new(help_color: :cyan, interrupt: :noop)
+    @prompt = TTY::Prompt.new(help_color: :cyan, active_color: :bright_yellow, interrupt: :noop)
     @pastel = Pastel.new
   end
 
@@ -102,7 +102,7 @@ class App
     puts "Menu Navigation:\n\n"
     puts "   All menus include navigation instructions before any keys are pressed.\n\n   All allow you to scroll with keyboard arrows ↑/↓/←/→ and require you to press enter to confirm your selection.\n\n"
     puts "   If you are using a search funtion e.g. Select from Existing Users or Search all Cocktails:\n   Filter is enabled. Start typing, press enter to confirm your selection or arrow keys ↑/↓ to navigate filtered list.\n\n"
-    puts "   Menus with multi selection can select all using Ctrl+Shift+A\n\n   If menu selection is disabled, relevant message will advise why.\n\n"
+    puts "   Menus with multi selection can select all using Ctrl+A, or exit without selecting by pressing enter.\n\n   If menu selection is disabled, relevant message will advise why.\n\n"
     puts "Best of Luck and Enjoy!\n\n"
   end 
   def primary_app_run

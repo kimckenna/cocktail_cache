@@ -14,7 +14,7 @@ class List
     @selected_index_list = []
     @font_block = TTY::Font.new(:block)
     @pastel = Pastel.new
-    @prompt = TTY::Prompt.new(help_color: :cyan, interrupt: :noop)
+    @prompt = TTY::Prompt.new(help_color: :cyan, active_color: :bright_yellow, interrupt: :noop)
   end
 
   def list_run
