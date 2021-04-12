@@ -1,6 +1,5 @@
 require 'json'
 require 'tty-prompt'
-require 'colorize'
 require 'tty-font'
 require 'artii'
 require 'pastel'
@@ -73,7 +72,7 @@ module PrintCocktail
     font_block = TTY::Font.new(:block)
     title = value.split(' ')
     title.each do |word|
-      print font_block.write(word)
+      print pastel.bold.bright_blue(font_block.write(word))
     end
     puts
   end

@@ -8,7 +8,6 @@ require_relative 'welcome'
 # gems
 require 'json'
 require 'tty-prompt'
-require 'colorize'
 require 'pastel'
 # require 'artii'
 
@@ -26,7 +25,7 @@ class App
     @run_sub_menu = true
     @font_block = TTY::Font.new(:block)
     @already_favourite = false
-    @prompt = TTY::Prompt.new(help_color: :cyan)
+    @prompt = TTY::Prompt.new(help_color: :cyan, interrupt: :noop)
     @pastel = Pastel.new
   end
 
@@ -37,10 +36,6 @@ class App
     else
       argv_run
     end
-  end
-
-  def pastel_check
-    @pastel.cyan('Hello')
   end
 
   def argv_run
@@ -124,9 +119,13 @@ class App
   def title_name(name)
     title = name.split(' ')
     title.each do |word|
-      print @font_block.write(word)
+      print @pastel.bold.bright_blue(@font_block.write(word))
     end
     puts
+  end
+
+  def pastel_check
+    @pastel.cyan('Hello')
   end
 
   def help
@@ -138,7 +137,7 @@ class App
   end
 
   def fav_title
-    'Favourites'
+    "#{@user.current_user.capitalize}'s Favourites"
   end
 
   def search_title
@@ -147,7 +146,7 @@ class App
 
   def slide_enter
     slider_format = ->(slider, value) { "|#{slider}| #{value.zero? ? '' : 'Enter'}" % value }
-    @prompt.slider('Slide on in!', max: 1, step: 1, default: 0, format: slider_format)
+    @prompt.slider("Slide on in!\n", max: 1, step: 1, default: 0, format: slider_format)
   end
 
   def enter_site(selection)
@@ -161,7 +160,7 @@ class App
   def main_menu_options
     main_menu_options = { "Random Cocktail": 1, "Favourites": 2, "Search Cocktails": 3, "Return to User Menu": 4,
                           "Exit": 5 }
-    @prompt.select('Make a Selection:', main_menu_options)
+    @prompt.select("Make a Selection:\n", main_menu_options)
   end
 
   def main_menu_disabled
@@ -172,7 +171,7 @@ class App
       { name: 'Return to User Menu', value: 4 },
       { name: 'Exit', value: 5 }
     ]
-    @prompt.select('Make a Selection:', main_menu_options)
+    @prompt.select("Make a Selection:\n", main_menu_options)
   end
 
   def favourites_exist_check
@@ -261,7 +260,7 @@ class App
   def sub_menu(input)
     puts
     options = { "Add to Favourites": 1, "#{input}": 2, "Exit to Main Menu": 3 }
-    @prompt.select('Make a Selection:', options)
+    @prompt.select("Make a Selection:\n", options)
   end
 
   def sub_menu_disabled(input)
@@ -271,7 +270,7 @@ class App
       { name: input.to_s, value: 2 },
       { name: 'Exit to Main Menu', value: 3 }
     ]
-    @prompt.select('Make a Selection:', options)
+    @prompt.select("Make a Selection:\n", options)
   end
 
   def user_favourite_array
@@ -310,7 +309,7 @@ class App
   def fav_sub_menu
     puts
     options = { "Return to Favourites Menu": 1, "Exit to Main Menu": 2 }
-    @prompt.select('Make a Selection:', options)
+    @prompt.select("Make a Selection:\n", options)
   end
 
   def fav_sub_options(selection)

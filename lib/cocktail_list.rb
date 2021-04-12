@@ -13,7 +13,8 @@ class List
     @cocktails_select_alcohol = []
     @selected_index_list = []
     @font_block = TTY::Font.new(:block)
-    @prompt = TTY::Prompt.new(help_color: :cyan)
+    @pastel = Pastel.new
+    @prompt = TTY::Prompt.new(help_color: :cyan, interrupt: :noop)
   end
 
   def list_run
@@ -23,14 +24,14 @@ class List
   def title_name(name)
     title = name.split(' ')
     title.each do |word|
-      print @font_block.write(word)
+      print @pastel.bold.bright_blue(@font_block.write(word))
     end
     puts
   end
 
   def search_type
     user_type = { "Search Cocktails by Alcohol": 1, "Search all Cocktails": 2 }
-    @prompt.select('Make a Selection:', user_type)
+    @prompt.select("Make a Selection:\n", user_type)
   end
 
   def search_type_selection(search)
@@ -61,7 +62,7 @@ class List
   end
 
   def search_cocktails(input)
-    @selected_cocktail = @prompt.select('Choose a Cocktail: ', input, filter: true)
+    @selected_cocktail = @prompt.select("Choose a Cocktail:\n", input, filter: true)
     @selected_cocktail
   end
 
@@ -70,7 +71,7 @@ class List
   end
 
   def search_alcohol
-    @selected_alcohol = @prompt.select('Select an Alcohol: ', alcohol_ingredients, filter: true)
+    @selected_alcohol = @prompt.select("Select an Alcohol:\n", alcohol_ingredients, filter: true)
   end
 
   def cocktails_including_selected_alcohol(_search)

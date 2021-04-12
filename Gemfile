@@ -10,12 +10,8 @@ gem "rspec", "~> 3.10"
 
 gem "tty-prompt", "~> 0.23.0"
 
-gem "colorize", "~> 0.8.1"
-
 gem "json", "~> 2.5"
 
 gem "tty-font", "~> 0.5.0"
 
 gem "pastel"
-
-# gem 'artii', '~> 2.1', '>= 2.1.2'

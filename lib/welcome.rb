@@ -10,7 +10,7 @@ module Welcome
     font_block = TTY::Font.new(:block)
     title = name.split(' ')
     title.each do |word|
-      print font_block.write(word)
+      print pastel.bold.bright_blue(font_block.write(word))
     end
     puts
   end
@@ -29,15 +29,15 @@ module Welcome
 		Pastel.new
 	end
 
-	def cyan_blue_text
-		pastel.cyan("cyan blue")
+	def cyan_text
+		pastel.cyan("cyan")
 	end
 
   def about_app
     puts "Welcome!\n\nAbout Cocktail Cache:\n\n"
     puts "Cocktail Cache provides you with a selection of official IBA cocktails graciously collated by Teijo Lane and collaborators.\n\n"
     puts "Within this app you\'re able to:\n\n   1. Create and manage your own list of favourite cocktails.\n   2. Select a cocktail at random.\n   3. Search the extensive list of cocktails by name or ingredient.\n\n"
-    puts "When navigating Cockatil Cache, each menu explains the required keys to navigate in #{cyan_blue_text}.\n\n" 
+    puts "When navigating Cockatil Cache, each menu explains the required keys to navigate in #{cyan_text}.\n\n" 
     puts "Thanks for Downloading!\n\nKim \nCocktail of Choice: Whiskey Sour\n\n"
   end
 end

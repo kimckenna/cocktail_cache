@@ -2,6 +2,7 @@ require_relative 'favourites'
 require 'json'
 require 'tty-prompt'
 require 'colorize'
+require 'pastel'
 
 # Responsible for management of users.json - users and favourites
 class User
@@ -17,7 +18,8 @@ class User
     @current_user_favourites = []
     @unfavourite = []
     @font_block = TTY::Font.new(:block)
-    @prompt = TTY::Prompt.new(help_color: :cyan)
+    @pastel = Pastel.new
+    @prompt = TTY::Prompt.new(help_color: :cyan, interrupt: :noop)
   end
 
   def user_run
@@ -26,7 +28,6 @@ class User
     @current_user_favourites = []
     title_name(app_name)
     puts
-    #welcome
     user_type_menu
     puts
 
@@ -36,7 +37,7 @@ class User
   def title_name(name)
     title = name.split(' ')
     title.each do |word|
-      print @font_block.write(word)
+      print @pastel.bold.bright_blue(@font_block.write(word))
     end
     puts
   end
@@ -60,7 +61,7 @@ class User
 
   def user_type
     user_type = { "New User": 1, "Existing User": 2 }
-    @prompt.select('Make a Selection:', user_type)
+    @prompt.select("Make a Selection:\n", user_type)
   end
 
   def user_type_selection(user_type)
@@ -82,7 +83,7 @@ class User
   end
 
   def username
-    gets.strip.downcase
+    gets.strip.capitalize
   end
 
   def add_user(user)
@@ -126,7 +127,7 @@ class User
   end
 
   def existing_user_options
-    @current_user = @prompt.select('Select from Existing Users:', @users.keys, filter: true)
+    @current_user = @prompt.select("Select from Existing Users:\n", @users.keys, filter: true)
     @current_user_favourites = @users[current_user]['favourites']
     @current_user
   end
@@ -143,9 +144,6 @@ class User
     @users.length
   end
 
-  # Error handling required for incorrect input
-  # currently displaying selected_user_name
-
   def menu_selection
     gets.to_i
   end
@@ -159,7 +157,3 @@ class User
     retry
   end
 end
-
-# user = User.new('data/users.json')
-
-# user.user_run

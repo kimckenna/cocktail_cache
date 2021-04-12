@@ -13,7 +13,8 @@ class Favourite
     @random = Random.new('data/cocktails.json')
     @favourites = []
     @current_user = ''
-    @prompt = TTY::Prompt.new(help_color: :cyan)
+    @prompt = TTY::Prompt.new(help_color: :cyan, interrupt: :noop)
+    @prompt_alert = TTY::Prompt.new(help_color: :bright_red, active_color: :bright_red, interrupt: :noop)
   end
 
   def favourite_run(user)
@@ -34,7 +35,7 @@ class Favourite
   end
 
   def favourites_management
-    @unfavourite = @prompt.multi_select('Select the Cocktail/s you wish to delete from Favourites: ', display_favourites)
+    @unfavourite = @prompt_alert.multi_select("Select the Cocktail/s you wish to delete from Favourites:\n", display_favourites)
   end
 
   def remove_from_favourites
@@ -54,8 +55,8 @@ class Favourite
     @user = user.users
     @current_user = user.current_user
     @current_user_favourites = user.current_user_favourites
-    favourite_options = { "Random Favourite": 1, "View all Favourites": 2, "Favourites Management": 3 }
-    @prompt.select('Make a Selection:', favourite_options)
+    favourite_options = { "Random Favourite": 1, "View all Favourites": 2, "Favourites Management": 3}
+    @prompt.select("Make a Selection:\n", favourite_options)
   end
 
   def user_favourites_options(menu)
