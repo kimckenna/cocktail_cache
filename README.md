@@ -14,9 +14,14 @@ Cocktail Cache; a curated app of cocktail classics.
 ---
 ## Features
 
-1. Favourite a Cocktail: *Create and manage your own list of favourite cocktails*
-2. Request a Random Cocktail: *Select a cocktail at random; select from Cocktail Cache's full list or your own favourites* 
-3. Search for a Cocktail: *Search the extensive list of cocktails by name or ingredient or explore your own favourites*
+1. Favourite a Cocktail: 
+			*Create and manage your own list of favourite cocktails*
+
+2. Request a Random Cocktail: 
+			*Select a cocktail at random; select from Cocktail Cache's full list or your own favourites* 
+
+3. Search for a Cocktail: 
+			*Search the extensive list of cocktails by name or ingredient or explore your own favourites*
 
 These are made possible with the use of persistent storage through multiple json files that hold the database of cocktails and usernames with favourites selected by each user.
  
@@ -90,5 +95,5 @@ As a result, unless using ```'user'``` or ```'existing user'``` the app will ter
 
 ---
 
-### ENJOY!
+*ENJOY!*
 
