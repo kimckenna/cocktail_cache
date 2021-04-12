@@ -29,7 +29,7 @@ class List
   end
 
   def search_type
-    user_type = { "Search Cocktails By Alcohol": 1, "Search all Cocktails": 2 }
+    user_type = { "Search Cocktails by Alcohol": 1, "Search all Cocktails": 2 }
     @prompt.select('Make a Selection:', user_type)
   end
 

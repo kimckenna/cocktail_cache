@@ -1,9 +1,10 @@
-require 'colorize'
+#require 'colorize'
 require 'tty-font'
+require 'pastel'
 
 # Module printing Welcome / Start Page content
 module Welcome
-  attr_accessor :font_block
+  attr_accessor :font_block, :pastel
 
   def title_name(name)
     font_block = TTY::Font.new(:block)
@@ -24,11 +25,19 @@ module Welcome
     puts
   end
 
+	def pastel
+		Pastel.new
+	end
+
+	def cyan_blue_text
+		pastel.cyan("cyan blue")
+	end
+
   def about_app
     puts "Welcome!\n\nAbout Cocktail Cache:\n\n"
     puts "Cocktail Cache provides you with a selection of official IBA cocktails graciously collated by Teijo Lane and collaborators.\n\n"
     puts "Within this app you\'re able to:\n\n   1. Create and manage your own list of favourite cocktails.\n   2. Select a cocktail at random.\n   3. Search the extensive list of cocktails by name or ingredient.\n\n"
-    puts "When navigating Cockatil Cache, each menu will explain how to access each option.\n\n"
+    puts "When navigating Cockatil Cache, each menu explains the required keys to navigate in #{cyan_blue_text}.\n\n" 
     puts "Thanks for Downloading!\n\nKim \nCocktail of Choice: Whiskey Sour\n\n"
   end
 end

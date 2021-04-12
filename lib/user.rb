@@ -78,7 +78,7 @@ class User
   end
 
   def display_input_user_name
-    puts 'Please enter your username:'
+    puts "\nPlease chose a new username: (this will be used to identify your favourites)"
   end
 
   def username

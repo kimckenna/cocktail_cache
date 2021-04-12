@@ -3,6 +3,7 @@ require 'tty-prompt'
 require 'colorize'
 require 'tty-font'
 require 'artii'
+require 'pastel'
 
 # Prints Cocktail Card Format
 module PrintCocktail

@@ -64,6 +64,7 @@ class Favourite
       favourites_random_name(@random.random_index_full_list(favourites_length))
       PrintCocktail.selected_cocktail_index(user_cocktail_name(@random.selected_index[-1]))
       PrintCocktail.print_cocktail_elements
+      @random.selected_index_full(favourites_length + 1)
     when 2
       PrintCocktail.selected_cocktail_index(@list.search_cocktails(display_favourites))
       PrintCocktail.print_cocktail_elements

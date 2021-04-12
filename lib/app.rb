@@ -9,10 +9,10 @@ require_relative 'welcome'
 require 'json'
 require 'tty-prompt'
 require 'colorize'
+require 'pastel'
 # require 'artii'
 
 # Central class of app - runs other class menus and holds sub menu for favourites, list and random. Passes info from user to other menus
-
 class App
   include Welcome
   attr_accessor :users
@@ -27,6 +27,7 @@ class App
     @font_block = TTY::Font.new(:block)
     @already_favourite = false
     @prompt = TTY::Prompt.new(help_color: :cyan)
+    @pastel = Pastel.new
   end
 
   def run
@@ -36,6 +37,10 @@ class App
     else
       argv_run
     end
+  end
+
+  def pastel_check
+    @pastel.cyan('Hello')
   end
 
   def argv_run
@@ -110,7 +115,7 @@ class App
     Welcome.welcome_run
     enter_site(slide_enter)
     loop do
-      #system 'clear'
+      system 'clear'
       title_name(app_name)
       favourites_exist_check
     end

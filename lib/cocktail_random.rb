@@ -15,6 +15,7 @@ class Random
     random_index_full_list(PrintCocktail.total_cocktails)
     PrintCocktail.selected_cocktail_index(PrintCocktail.selected_cocktail_name(@selected_index[-1]))
     PrintCocktail.print_cocktail_elements
+    selected_index_full(PrintCocktail.total_cocktails)
   end
 
   def random_index_full_list(length)
@@ -29,5 +30,9 @@ class Random
 
   def clear_selected_index
     @selected_index = []
+  end
+
+  def selected_index_full(length)
+    clear_selected_index if @selected_index.length == length
   end
 end

@@ -2,13 +2,14 @@
 
 ## About Cocktail Cache
 
-Cocktail Cache was built with simplicity in mind!
-
+Cocktail Cache was built with simplicity in mind.
 After you've entered a new username or selected an existing, you're able to start exploring. Here on out all navigation is menu based and no written input is required.
 
-Find a cocktail you'd love to save for later, add it to your favourites. Feeling adventurous and want to see what lady luck can offer; generate a random cocktail. Have a particular Aunt who loves Brandy, search by ingredient! 
-
-Our selection options may not be vast but our Cocktail Inventory sure is!
+Find a cocktail you'd love to save for later; add it to your favourites. 
+Feeling adventurous and want to see what lady luck can offer; generate a random cocktail. 
+Have a particular Aunt who loves Brandy; search by ingredient. 
+ 
+Cocktail Cache; a curated app of cocktail classics. 
 
 ---
 ## Installation 

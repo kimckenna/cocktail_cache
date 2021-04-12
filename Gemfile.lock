@@ -1,7 +1,6 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    artii (2.1.2)
     colorize (0.8.1)
     diff-lcs (1.4.4)
     json (2.5.1)
@@ -37,7 +36,6 @@ PLATFORMS
   arm64-darwin-20
 
 DEPENDENCIES
-  artii (~> 2.1, >= 2.1.2)
   colorize (~> 0.8.1)
   json (~> 2.5)
   rspec (~> 3.10)
