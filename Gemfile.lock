@@ -38,6 +38,7 @@ PLATFORMS
 DEPENDENCIES
   colorize (~> 0.8.1)
   json (~> 2.5)
+  pastel
   rspec (~> 3.10)
   tty-font (~> 0.5.0)
   tty-prompt (~> 0.23.0)

@@ -95,7 +95,7 @@ module PrintCocktail
   end
 
   def total_cocktails
-    p @cocktails.length - 1
+    @cocktails.length - 1
   end
 
   def load_cocktail_data(file_path)

@@ -12,6 +12,17 @@ Have a particular Aunt who loves Brandy; search by ingredient.
 Cocktail Cache; a curated app of cocktail classics. 
 
 ---
+## Features
+
+1. Favourite a Cocktail: *Create and manage your own list of favourite cocktails*
+2. Request a Random Cocktail: *Select a cocktail at random; select from Cocktail Cache's full list or your own favourites* 
+3. Search for a Cocktail: *Search the extensive list of cocktails by name or ingredient or explore your own favourites*
+
+These are made possible with the use of persistent storage through multiple json files that hold the database of cocktails and usernames with favourites selected by each user.
+ 
+Each feature's objective is to provide an IBA Cocktail to the user; they all perform their function using a web of menus and what separates them is how they achieve this end objective.
+
+---
 ## Installation 
 
 ### Clone Repository:
@@ -30,7 +41,7 @@ This will install: <br>
 
 ```./cocktail_cache.sh```<br>
 
-
+---
 ## Dependencies 
 
 This App was built and tested using Ruby 2.7.2
@@ -45,9 +56,9 @@ For more information on downloading Ruby for your OS visit
 
 - rspec 3.10
 - tty-prompt 0.23.0
-- colorize 0.8.1
 - json 2.5
 - tty-font 0.5.0
+- pastel
 
 ---
 ## Additional Help
@@ -77,9 +88,7 @@ Search a Users Favourites:
 Full functionality of Cocktail Cache requires username selection.
 As a result, unless using ```'user'``` or ```'existing user'``` the app will terminate once a cocktail is populated.
 
-
 ---
 
 ### ENJOY!
 
----
