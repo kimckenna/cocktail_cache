@@ -1,7 +1,6 @@
 require 'json'
 require 'tty-prompt'
 require 'tty-font'
-require 'artii'
 require 'pastel'
 
 # Prints Cocktail Card Format
