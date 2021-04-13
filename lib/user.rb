@@ -1,7 +1,6 @@
 require_relative 'favourites'
 require 'json'
 require 'tty-prompt'
-require 'colorize'
 require 'pastel'
 
 # Responsible for management of users.json - users and favourites
